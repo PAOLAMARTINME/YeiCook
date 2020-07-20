@@ -5,7 +5,7 @@ export default class ChefService {
     constructor() {
 
         this.service = axios.create({
-            baseURL: 'http://localhost:5000/chefs',
+            baseURL: 'http://localhost:5000/api/chefs',
             withCredentials: true
         })
     }
