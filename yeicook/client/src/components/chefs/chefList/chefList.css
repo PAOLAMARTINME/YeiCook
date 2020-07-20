@@ -1,0 +1,8 @@
+.chefcard {
+    margin-bottom: 40px;
+}
+
+.chefcard img {
+    height: 180px;
+    object-fit: cover;
+}
