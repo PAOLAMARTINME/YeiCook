@@ -23,16 +23,17 @@ class Navigation extends Component {
             .logout()
             .then(() => {
                 this.props.setTheUser(false)
-                // this.props.handleToast(true, 'Usuario desconectado')
+                this.props.handleToast(true, 'Usuario desconectado')
             })
             .catch(err => console.log(err))
     }
 
     render() {
         return (
+            
             <Navbar expand="lg" sticky="top" >
-                <Navbar.Brand>
-                    <Link to="/"><Image className="logo" src="/images/yeiCookBlanco.png" alt="YeiCook" /></Link>
+                <Navbar.Brand className="navbar">
+                    <Link to="/"><Image className="logo" src="/images/yeiCookCirulo.png" alt="YeiCook"/></Link>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -44,7 +45,7 @@ class Navigation extends Component {
                         {this.props.loggedInUser ?
                             (
                                 <Nav.Link as="span">
-                                    <span onClick={this.logout}>Cerrar sesión</span>
+                                    <span onClick={this.logout}><Button className="button-nav" variant="outline-info">Cerrar sesión</Button></span>
                                 </Nav.Link>
                             ) : (
                                 <>
@@ -61,13 +62,13 @@ class Navigation extends Component {
                             )
                         }
 
-                        {/* <Nav.Link as="span">
-                            <NavLink to="/profile" activeStyle={{ color: 'white' }}>Hola, {this.props.loggedInUser ? this.props.loggedInUser.username : 'invitado'}</NavLink>
-                        </Nav.Link> */}
+                        <Nav.Link as="span">
+                            <NavLink to="/profile" activeStyle={{ color: 'white' }}>{this.props.loggedInUser ? this.props.loggedInUser.avatar : 'invitado'}</NavLink>
+                        </Nav.Link>
                     </Nav>
 
                 </Navbar.Collapse>
-            </Navbar>
+                </Navbar>
         )
     }
 }

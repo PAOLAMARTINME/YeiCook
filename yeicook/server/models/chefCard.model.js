@@ -7,6 +7,9 @@ const ChefSchema = new mongoose.Schema({
     avatar: {
         type: String
     },
+    email: {
+        type: String,
+    },
     type: {
         type: String,
         enum: ['cocktail/catering', 'desayunos', 'comidas', 'cenas']

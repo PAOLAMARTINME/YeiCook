@@ -32,7 +32,7 @@ class LoginForm extends Component {
             .then(response => {
                 this.props.setTheUser(response.data)
                 this.props.handleToast(true, 'Sesión iniciada')
-                this.props.history.push('/chefs')
+                this.props.history.push('/profile')
             })
             .catch(err => console.log(err.response.data.message))  
     }

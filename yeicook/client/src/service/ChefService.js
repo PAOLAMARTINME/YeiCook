@@ -11,8 +11,8 @@ export default class ChefService {
     }
 
     getAllChefs = () => this.service.get('/getAllChefs')
-    getOneChef = id => this.service.get(`/getOneChef/${id}`)
-    createChef = chef => this.service.post(`/newChef`, chef)
-    updateChefData = (id) => this.service.put(`/chef/${id}`)
+    getOneChef = (id) => this.service.get(`/getOneChef/${id}`)
+    editChef = (id) => this.service.put(`/getOneChef/${id}`)
+    createChef = chef => this.service.post('/newChef', chef)
     deleteChef = (id) => this.service.delete(`/chefs/${id}`)
 }

@@ -15,6 +15,7 @@ const User = require('../models/user.model')
 const chefs = [{
     name: 'Jose Martinez',
     avatar: 'https://images.unsplash.com/photo-1569466896818-335b1bedfcce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+    email: 'paolamartinme@gmail.com',
     type: 'cocktail/catering',
     specialty: 'vegana',
     location: 'Sol, Madrid-España',
@@ -26,6 +27,7 @@ const chefs = [{
 {
     name: 'Nelson Garcia',
     avatar: 'https://images.unsplash.com/photo-1558227901-87eb8922813f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+    email: 'paolamartinme@gmail.com',
     type: 'desayunos',
     specialty: 'vegetariana',
     location: 'Sol, Madrid-España',
@@ -37,6 +39,7 @@ const chefs = [{
 {
     name: 'Jessica Espinoza',
     avatar: 'https://images.unsplash.com/photo-1584308972272-9e4e7685e80f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+    email: 'paolamartinme@gmail.com',
     type: 'cocktail/catering',
     specialty: 'sin gluten',
     location: 'Sol, Madrid-España',
@@ -48,6 +51,7 @@ const chefs = [{
 {
     name: 'Ely Rebolledo',
     avatar: 'https://images.unsplash.com/photo-1579503841516-e0bd7fca5faa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+    email: 'paolamartinme@gmail.com',
     type: 'cenas',
     specialty: 'saludable',
     location: 'Sol, Madrid-España',
@@ -59,6 +63,7 @@ const chefs = [{
 {
     name: 'Nidian Martin',
     avatar: 'https://lh3.googleusercontent.com/-lFxFUuYhtA8nW0AnpByRIw4UDbVfapvN0pmF6ePLK3ewVm9k9qjhimhI4-AxYlZvSskmlHtG7O7bxYme7iV-I8uDaVhW-6CZHT91UjY08m94AwE5SIgP9ye9JTcabFKCktmXRpEfwomdls0xef96RP2xcpjljFFZ2luvZ0QvuHV5TqxP5y6BD2Iq_rHEwCwj5mIl6fMc_f6sKNICfqEiRj1cwsS_HMpMg42dxNYeJrAbNh10sBEh88_rlgtbyvcQ441L3JkY2o7WlOlwH3IwvZAcat-UR0b1_AcI3fk388W5E2pYp7vOuvU3NhiR5_ZkyR4yeL2PkuYOsuslj0i2FW304NCVmddHU_g6yowrlpG_qiC0-bUrISXRohgZE0cuPlopGIsFaLAT7X6jAwgPJJsXlhFNQHUSiEAfCUDXePQlctgwmgVJYWsvc-5NuFKLa8X2lyk49qtCK08Qg1FZniaa1IjE7uvgvwH-qcHcT_dVOt94JPaeyUfRrYom01QZpNXMAkVRj9O5193X6tP3qGoJI6eGyf_e9Bl0nK9c6e9GNPcjm17oUhhh36XV2MNcnOpAoEaTZwnbOCcfSC1YthVFW5rJ3Oqbx1WaAINxw2rsDoWrMGYGwyqcuXnbMhnocCh_YvSTFYCsbImyk6yLb_H8GPhKFujYRUBXEBzdJLVv3f1_Np72HIW2jOh1ok=w1100-h1466-no?authuser=0',
+    email: 'paolamartinme@gmail.com',
     type: 'comidas',
     specialty: 'mediterranea',
     location: 'Sol, Madrid-España',

@@ -32,7 +32,7 @@ class SignupForm extends Component {
                 this.props.handleToast(true, 'Registro completado')
                 this.props.history.push('/chefs')
             })
-            .catch(err => console.log(err.response.data)) 
+            .catch(err => console.log(err.response.data.message)) 
     }
 
     render() {
