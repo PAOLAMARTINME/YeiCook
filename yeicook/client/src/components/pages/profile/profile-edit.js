@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import UserService from './../../../service/UserService'
+import UserService from '../../../service/UserService'
 
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'

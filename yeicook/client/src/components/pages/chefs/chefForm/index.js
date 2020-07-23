@@ -1,22 +1,26 @@
 import React, { Component } from 'react'
-import ChefService from '../../../service/ChefService'
+import ChefService from '../../../../service/ChefService'
+
 // import FilesService from '../../../service/FilesService'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 class ChefForm extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        const { seletedChef } = this.props;
+        super(props)
         this.state = {
-            name: '',
-            type: '',
-            specialty: '',
-            location: '',
-            contact: '',
+            id: seletedChef ? seletedChef._id : '',
+            avatar: seletedChef ? seletedChef.avatar : '',
+            name: seletedChef ? seletedChef.name :'',
+            type: seletedChef ? seletedChef.type :'',
+            specialty: seletedChef ? seletedChef.specialty :'',
+            location: seletedChef ? seletedChef.location :'',
+            contact: seletedChef ? seletedChef.contact :'',
             certificate: 'true',
             title: 'true',
-            img:''
+            img: seletedChef ? seletedChef.img :''
         }
         this.chefService = new ChefService()
         // this.filesService = new FilesService()    // CLOUDINARYCONFIG  
@@ -53,7 +57,7 @@ class ChefForm extends Component {
             <>
                 <h3>Nuevo chef</h3>
                 <hr></hr>
-                <Form onSubmit={this.handleFormSubmit}>
+                <Form onSubmit={(e) => this.props.handleFormSubmit(e, { id: this.state.id, name: this.state.name, type: this.state.type, specialty: this.state.specialty, location: this.state.location, contact: this.state.contact, certificate: this.state.certificate, title: this.state.title, img: this.state.img })}>
                     <Form.Group>
                         <Form.Label>Nombre</Form.Label>
                         <Form.Control onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />
@@ -94,6 +98,7 @@ class ChefForm extends Component {
                     </Form.Group> */}
 
                     <Button variant="info" type="submit">submit</Button>
+                    
                 </Form>
             </>
         )

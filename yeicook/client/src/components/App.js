@@ -9,11 +9,11 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import Navigation from './ui/navbar'
 import Message from './ui/CustomToast'
 
-import Home from './home/index'
-import ChefsList from './chefs/chefList'
-import ChefDetails from './chefs/chefDetails'
-import SignupForm from './auth/Signup-form'
-import LoginForm from './auth/Login-form'
+import Home from './pages/home/index'
+import ChefsList from './pages/chefs/chefList/index'
+import ChefDetails from './pages/chefs/chefDetails/index'
+import SignupForm from './pages/auth/Signup-form/'
+import LoginForm from './pages/auth/Login-form/'
 import Profile from './pages/profile/index'
 
 class App extends Component {
@@ -60,7 +60,7 @@ class App extends Component {
           <Route path="/profile" render={props => this.state.loggedInUser ? <Profile {...props} loggedInUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
           <Route path="/signup" render={props => <SignupForm {...props} setTheUser={this.setTheUser} handleToast={this.handleToast} />} />
           <Route path="/login" render={props => <LoginForm {...props} setTheUser={this.setTheUser} handleToast={this.handleToast} />} />
-          <Route exact path="/chefs" render={() => <ChefsList loggedInUser={this.state.loggedInUser} />} />
+          <Route exact path="/chefs" render={() => <ChefsList setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} />} />
           <Route path="/chefs/:id" render={props => <ChefDetails {...props} />} />
         </Switch>
 

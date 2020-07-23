@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ChefService from '../../../service/ChefService'
+import ChefService from '../../../../service/ChefService'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'

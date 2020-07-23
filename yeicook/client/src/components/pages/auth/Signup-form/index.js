@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import AuthService from '../../../service/AuthService'
+import AuthService from '../../../../service/AuthService'
 
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -8,8 +8,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-
-class LoginForm extends Component {
+class SignupForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -19,7 +18,6 @@ class LoginForm extends Component {
         this.authService = new AuthService()
     }
 
-
     handleInputChange = e => {
         const { name, value } = e.target
         this.setState({ [name]: value })
@@ -28,13 +26,13 @@ class LoginForm extends Component {
     handleFormSubmit = e => {
         e.preventDefault()
         this.authService
-            .login(this.state)
+            .signup(this.state)
             .then(response => {
-                this.props.setTheUser(response)
-                this.props.handleToast(true, 'Sesión iniciada')
-                this.props.history.push('/profile')
+                this.props.setTheUser(response.data)
+                this.props.handleToast(true, 'Registro completado')
+                this.props.history.push('/chefs')
             })
-            .catch(err => console.log(err))  
+            .catch(err => console.log(err.response.data.message)) 
     }
 
     render() {
@@ -43,7 +41,7 @@ class LoginForm extends Component {
 
                 <Row>
                     <Col md={{ offset: 3, span: 6 }}>
-                        <h3>Inicio de sesión</h3>
+                        <h3>Registro de usuario</h3>
 
                         <hr></hr>
 
@@ -60,7 +58,7 @@ class LoginForm extends Component {
                                 <Form.Text className="text-muted">Mínimo tres caracteres</Form.Text>
                             </Form.Group>
 
-                            <Button variant="info" type="submit">Iniciar sesión</Button>
+                            <Button variant="info" type="submit">Registrarme</Button>
                         </Form>
 
                     </Col>
@@ -72,4 +70,6 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm
+export default SignupForm
+
+

@@ -14,5 +14,5 @@ export default class ChefService {
     getOneChef = (id) => this.service.get(`/getOneChef/${id}`)
     editChef = (id) => this.service.put(`/getOneChef/${id}`)
     createChef = chef => this.service.post('/newChef', chef)
-    deleteChef = (id) => this.service.delete(`/chefs/${id}`)
+    deleteChef = (id) => this.service.delete(`/chef/${id}`)
 }

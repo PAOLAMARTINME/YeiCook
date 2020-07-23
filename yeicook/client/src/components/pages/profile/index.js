@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import UserService from './../../../service/UserService'
+import UserService from '../../../service/UserService'
 
 import EditProfile from './profile-edit'
 
