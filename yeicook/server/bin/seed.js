@@ -62,7 +62,7 @@ const chefs = [{
 },
 {
     name: 'Nidian Martin',
-    avatar: 'https://lh3.googleusercontent.com/-lFxFUuYhtA8nW0AnpByRIw4UDbVfapvN0pmF6ePLK3ewVm9k9qjhimhI4-AxYlZvSskmlHtG7O7bxYme7iV-I8uDaVhW-6CZHT91UjY08m94AwE5SIgP9ye9JTcabFKCktmXRpEfwomdls0xef96RP2xcpjljFFZ2luvZ0QvuHV5TqxP5y6BD2Iq_rHEwCwj5mIl6fMc_f6sKNICfqEiRj1cwsS_HMpMg42dxNYeJrAbNh10sBEh88_rlgtbyvcQ441L3JkY2o7WlOlwH3IwvZAcat-UR0b1_AcI3fk388W5E2pYp7vOuvU3NhiR5_ZkyR4yeL2PkuYOsuslj0i2FW304NCVmddHU_g6yowrlpG_qiC0-bUrISXRohgZE0cuPlopGIsFaLAT7X6jAwgPJJsXlhFNQHUSiEAfCUDXePQlctgwmgVJYWsvc-5NuFKLa8X2lyk49qtCK08Qg1FZniaa1IjE7uvgvwH-qcHcT_dVOt94JPaeyUfRrYom01QZpNXMAkVRj9O5193X6tP3qGoJI6eGyf_e9Bl0nK9c6e9GNPcjm17oUhhh36XV2MNcnOpAoEaTZwnbOCcfSC1YthVFW5rJ3Oqbx1WaAINxw2rsDoWrMGYGwyqcuXnbMhnocCh_YvSTFYCsbImyk6yLb_H8GPhKFujYRUBXEBzdJLVv3f1_Np72HIW2jOh1ok=w1100-h1466-no?authuser=0',
+    avatar: 'https://images.unsplash.com/photo-1589654312430-20441681ac7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
     email: 'paolamartinme@gmail.com',
     type: 'comidas',
     specialty: 'mediterranea',

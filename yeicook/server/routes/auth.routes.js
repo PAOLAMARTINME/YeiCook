@@ -104,55 +104,56 @@ router.get('/loggedin', ensureLoggedIn(), (req, res) => {
 });
 
 
-//Users crud profile
+// Users crud profile
 
-router.get("/profile", ensureLoggedIn(), (req, res) => {
-    User
-        .find()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(404).json({ message: 'No se encuentra en la BBDD' }))
-})
+// router.get('/profile', ensureLoggedIn(), (req, res) => {
+//     User
+//         .find()
+//         .then(data => res.status(200).json(data))
+//         .catch(err => res.status(404).json({ err, message: 'error BBDD' }))
+// })
 
-router.get('/editProfile/:user_id', (req, res, next) => {
+// router.get('/editProfile/:id', (req, res, next) => {
 
-    User
-        .findById(req.params.user_id)
-        .then(response => res.json(response))
-        .catch(err => next(err))
-})
+//     User
+//         .findById(req.params.id)
+//         .then(response => res.json(response))
+//         .catch(err => next(err))
+// })
 
-router.put("/editProfile/:user_id", ensureLoggedIn(), (req, res, next) => {
-        const {
-            name,
-            username,
-            password,
-            email,
-            avatar,
-            location,
-            contact,
-        } = req.body
+// router.put("/editProfile/:id", ensureLoggedIn(), (req, res, next) => {
+//     const {
+//         name,
+//         username,
+//         password,
+//         email,
+//         avatar,
+//         location,
+//         contact,
+//     } = req.body
+//     User
+//         .findByIdAndUpdate(req.params.id, {
+//             name,
+//             username,
+//             password,
+//             email,
+//             avatar,
+//             location,
+//             contact,
+//         }, { new: true })
+//         .then(response => res.json(response))
+//         .catch(err => next(err))
+// })
 
-        User
-            .findByIdAndUpdate(req.params.id, {
-                name,
-                username,
-                password,
-                email,
-                avatar,
-                location,
-                contact,
-            }, { new: true })
-            .then(response => res.json(response))
-            .catch(err => next(err))
-})
-
-router.delete("/profile/:id", ensureLoggedIn(), (req, res) => {
-        User
-            .findByIdAndDelete(req.params.id)
-            .then(response => res.status(200).json(response))
-            .catch(err => next(err))
-    
-})
+// router.delete('/profile/:id', ensureLoggedIn(), (req, res) => {
+//     const role = req.user.role
+//     if (role === "ADMIN") {
+//         User
+//             .findByIdAndDelete(req.params.id)
+//             .then(response => res.status(200).json(response))
+//             .catch(err => next(err))
+//     }
+// })
 
 
 module.exports = router

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import './profile.css'
 
-import AuthService from './../../../service/AuthService'
+import UserService from './../../../service/UserService'
 
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
@@ -9,21 +8,20 @@ import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
 
 
-class Profile extends Component {
+class EditProfile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            edit: false,
-            name: this.props.name,
-            username: this.props.username,
-            password: this.props.password,
-            email: this.props.email,
-            avatar: this.props.avatar,
-            location: this.props.location,
-            contact: this.props.contact,
-            showModal: false
+            name: '',
+            username: '',
+            password: '',
+            email: '',
+            avatar: '',
+            location: '',
+            contact: '',
         }
-        this.authService = new AuthService()
+        this.userService = new UserService()
+        // this.filesService = new FilesService()
     }
 
     handleInputChange = e => {
@@ -31,9 +29,22 @@ class Profile extends Component {
         this.setState({ [name]: value })
     }
 
+    // handleFileUpload = e => {
+    //     const uploadData = new FormData()
+    //     uploadData.append("avatar", e.target.files[0])
+
+    //     this.filesService.handleUpload(uploadData)
+    //         .then(response => {
+    //             console.log('Subida de archivo finalizada! La URL de Cloudinray es: ', response.data.secure_url)
+    //             this.setState({ avatar: response.data.secure_url })
+    //         })
+    //         .catch(err => console.log(err))
+    // }
+
+
     handleFormSubmit = e => {
         e.preventDefault()
-        this.authService
+        this.userService
             .editProfile(this.state)
             .then(() => this.props.handleFormSubmit())
             .catch(err => console.log(err))
@@ -45,31 +56,34 @@ class Profile extends Component {
             <>
                 <Form>
                     <Form.Row>
-                        
-                        <Image className="avatar" src={this.props.avatar} alt="Avatar" />
 
-                        <Form.Group controlId="formGridAddress1">
+                        <Form.Group controlId="title">
                             <Form.Label>Nombre</Form.Label>
-                            <Form.Control placeholder="Paola Martin" value={this.props.name} onChange={this.handleInputChange}/>
+                            <Form.Control name="name" type="text" placeholder="Nombre completo" value={this.state.name} onChange={this.handleInputChange}/>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridEmail">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" placeholder="Email" value={this.props.email} onChange={this.handleInputChange} />
+                            <Form.Control name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleInputChange} />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="formGridPassword">
                             <Form.Label>Contraseña</Form.Label>
-                            <Form.Control type="password" placeholder="Contraseña" value={this.props.password} onChange={this.handleInputChange}/>
+                            <Form.Control name="password" type="password" placeholder="Contraseña" value={this.state.password} onChange={this.handleInputChange}/>
                         </Form.Group>
                     </Form.Row>
 
                     <Form.Group controlId="formGridAddress1">
                         <Form.Label>Dirección</Form.Label>
-                        <Form.Control placeholder="Location" value={this.props.location} onChange={this.handleInputChange}/>
+                        <Form.Control name="location" type="text" placeholder="Location" value={this.state.location} onChange={this.handleInputChange}/>
                     </Form.Group>
 
+                    {/* <Form.Group >
+                        <Form.Label>Imagen (archivo)</Form.Label>
+                        <Form.Control name="avatar" type="file" onChange={this.handleFileUpload} />
+                    </Form.Group> */}
 
-                    <Button variant="info" type="submit" onSubmit={this.handleFormSubmit}> Editar</Button>
+
+                    <Button variant="info" type="submit" > Editar</Button>
 
                 </Form>
             </>
@@ -79,4 +93,4 @@ class Profile extends Component {
 }
 
 
-export default Profile
+export default EditProfile

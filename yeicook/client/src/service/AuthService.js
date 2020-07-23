@@ -15,9 +15,4 @@ export default class AuthService {
     logout = () => this.service.post('/logout')
     isLoggedIn = () => this.service.get('/loggedin')
     
-    profile = () => this.service.get('/profile')
-    getOneProfile = (id) => this.service.get(`/editProfile/${id}`)
-    editProfile = (id) => this.service.put(`/editProfile/${id}`)
-    deleteUser = (id) => this.service.delete(`/profile/${id}`)
-
 }

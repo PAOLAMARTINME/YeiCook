@@ -30,10 +30,10 @@ class Navigation extends Component {
 
     render() {
         return (
-            
-            <Navbar expand="lg" sticky="top" >
+
+            <Navbar expand="lg" >
                 <Navbar.Brand className="navbar">
-                    <Link to="/"><Image className="logo" src="/images/yeiCookCirulo.png" alt="YeiCook"/></Link>
+                    <Link to="/"><Image className="logo" src="/images/yeiCookCirulo.png" alt="YeiCook" /></Link>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -45,7 +45,7 @@ class Navigation extends Component {
                         {this.props.loggedInUser ?
                             (
                                 <Nav.Link as="span">
-                                    <span onClick={this.logout}><Button className="button-nav" variant="outline-info">Cerrar sesión</Button></span>
+                                    <span onClick={this.logout} ><Button className="button-nav" variant="outline-info">Cerrar sesión</Button></span>
                                 </Nav.Link>
                             ) : (
                                 <>
@@ -63,12 +63,12 @@ class Navigation extends Component {
                         }
 
                         <Nav.Link as="span">
-                            <NavLink to="/profile" activeStyle={{ color: 'white' }}>{this.props.loggedInUser ? this.props.loggedInUser.avatar : 'invitado'}</NavLink>
+                            <NavLink to="/profile" activeStyle={{ color: 'white' }}>{this.props.loggedInUser ? this.props.loggedInUser.username : 'invitado'}</NavLink>
                         </Nav.Link>
                     </Nav>
 
                 </Navbar.Collapse>
-                </Navbar>
+            </Navbar>
         )
     }
 }

@@ -16,16 +16,16 @@ router.get('/getAllChefs', (req, res, next) => {
 
 })
 
-router.get('/getOneChef/:chef_id', (req, res, next) => {
+router.get('/getOneChef/:id', (req, res, next) => {
 
     Chef
-        .findById(req.params.chef_id)
+        .findById(req.params.id)
         .then(response => res.json(response))
         .catch(err => next(err))
 })
 
 
-router.put("/getOneChef/:chef_id", ensureLoggedIn(), (req, res, next) => {
+router.put("/getOneChef/:id", ensureLoggedIn(), (req, res, next) => {
     const role = req.user.role
     if (role === "ADMIN") {
         const {
@@ -59,6 +59,8 @@ router.put("/getOneChef/:chef_id", ensureLoggedIn(), (req, res, next) => {
     }
 })
 
+//NO EDITA
+
 router.post('/newChef', ensureLoggedIn(), (req, res, next) => {
     console.log('HOLA ADMIN', req.user.role)
     const role = req.user.role
@@ -70,7 +72,7 @@ router.post('/newChef', ensureLoggedIn(), (req, res, next) => {
     }
 })
 
-    router.delete("/chefs/:id", ensureLoggedIn(), (req, res) => {
+    router.delete('/chef/:id', ensureLoggedIn(), (req, res) => {
         const role = req.user.role
         if (role === "ADMIN") {
             Chef

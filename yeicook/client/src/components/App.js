@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
-
-
 import AuthService from './../service/AuthService'
 
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -13,9 +11,10 @@ import Message from './ui/CustomToast'
 
 import Home from './home/index'
 import ChefsList from './chefs/chefList'
+import ChefDetails from './chefs/chefDetails'
 import SignupForm from './auth/Signup-form'
 import LoginForm from './auth/Login-form'
-import ProfilePage from './pages/profile/index'
+import Profile from './pages/profile/index'
 
 class App extends Component {
 
@@ -58,11 +57,11 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" render={props => <Home {...props} />} />
-          <Route path="/profile" render={() =>this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} /> : <Redirect to='/signup' />}/>
+          <Route path="/profile" render={props => this.state.loggedInUser ? <Profile {...props} loggedInUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
           <Route path="/signup" render={props => <SignupForm {...props} setTheUser={this.setTheUser} handleToast={this.handleToast} />} />
           <Route path="/login" render={props => <LoginForm {...props} setTheUser={this.setTheUser} handleToast={this.handleToast} />} />
-        
-
+          <Route exact path="/chefs" render={() => <ChefsList loggedInUser={this.state.loggedInUser} />} />
+          <Route path="/chefs/:id" render={props => <ChefDetails {...props} />} />
         </Switch>
 
         <Message {...this.state.toast} handleToast={this.handleToast} />
