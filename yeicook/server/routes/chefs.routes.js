@@ -6,6 +6,9 @@ const { ensureLoggedIn, ensureLoggedOut} = require("connect-ensure-login")
 const Chef = require('../models/chefCard.model')
 const User = require('../models/user.model')
 
+// Role checker middleware
+const checkRole = rolesToCheck => (req, res, next) => rolesToCheck.includes(req.user.role) ? next() : res.redirect('/login')
+
 // Endpoints
 router.get('/getAllChefs', (req, res, next) => {
 
@@ -25,9 +28,7 @@ router.get('/getOneChef/:id', (req, res, next) => {
 })
 
 
-router.put("/getOneChef/:id", ensureLoggedIn(), (req, res, next) => {
-    const role = req.user.role
-    if (role === "ADMIN") {
+router.put("/getOneChef/:id", checkRole(['ADMIN']),ensureLoggedIn(), (req, res, next) => {
         const {
             name,
             avatar,
@@ -56,30 +57,27 @@ router.put("/getOneChef/:id", ensureLoggedIn(), (req, res, next) => {
             }, { new: true })
             .then(response => res.json(response))
             .catch(err => next(err))
-    }
 })
+
 
 //NO EDITA
 
-router.post('/newChef', ensureLoggedIn(), (req, res, next) => {
-    console.log('HOLA ADMIN', req.user.role)
-    const role = req.user.role
-    if (role === "ADMIN") {
+router.post('/newChef', checkRole(['ADMIN']),ensureLoggedIn(), (req, res, next) => {
+
         Chef
             .create(req.body)
             .then(response => res.json(response))
             .catch(err => next(err))
-    }
+
 })
 
-    router.delete('/chef/:id', ensureLoggedIn(), (req, res) => {
-        const role = req.user.role
-        if (role === "ADMIN") {
+router.delete('/chef/:id', checkRole(['ADMIN']),ensureLoggedIn(), (req, res) => {
+
             Chef
                 .findByIdAndDelete(req.params.id)
                 .then(response => res.status(200).json(response))
                 .catch(err => next(err))
-        }
+        
     })
 
 

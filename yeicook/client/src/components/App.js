@@ -10,7 +10,7 @@ import Navigation from './ui/navbar'
 import Message from './ui/CustomToast'
 
 import Home from './pages/home/index'
-import ChefsList from './pages/chefs/chefList/index'
+import PageChefs from './pages/chefs/index'
 import ChefDetails from './pages/chefs/chefDetails/index'
 import SignupForm from './pages/auth/Signup-form/'
 import LoginForm from './pages/auth/Login-form/'
@@ -60,7 +60,7 @@ class App extends Component {
           <Route path="/profile" render={props => this.state.loggedInUser ? <Profile {...props} loggedInUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
           <Route path="/signup" render={props => <SignupForm {...props} setTheUser={this.setTheUser} handleToast={this.handleToast} />} />
           <Route path="/login" render={props => <LoginForm {...props} setTheUser={this.setTheUser} handleToast={this.handleToast} />} />
-          <Route exact path="/chefs" render={() => <ChefsList setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} />} />
+          <Route exact path="/chefs" render={() => <PageChefs setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} />} />
           <Route path="/chefs/:id" render={props => <ChefDetails {...props} />} />
         </Switch>
 
