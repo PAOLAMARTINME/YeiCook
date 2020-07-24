@@ -32,7 +32,7 @@ class Profile extends Component {
 
     updateProfile = () => {
         this.userService
-            .profile()
+            .profile(this.state)
             .then(response => this.setState({ user: response.data }))
             .catch(err => console.log(err))
     }

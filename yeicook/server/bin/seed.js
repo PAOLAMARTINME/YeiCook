@@ -1,9 +1,9 @@
 // Database
 const mongoose = require('mongoose')
 const dbName = 'YeiCook'
-// mongoose.connect(process.env.DB_REMOTE)
-// mongoose.connect(`${process.env.DB_REMOTE}`,{ useNewUrlParser: true, useUnifiedTopology: true })
-mongoose.connect(`mongodb+srv://paolamartinme:paolame_7@cluster0.9blyl.mongodb.net/${dbName}?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true })
+// mongoose.connect(process.env.DB_LOCAL)
+mongoose.connect(`${process.env.DB_REMOTE}`,{ useNewUrlParser: true, useUnifiedTopology: true })
+
 
 // Model
 const ChefCard = require('../models/chefCard.model')
