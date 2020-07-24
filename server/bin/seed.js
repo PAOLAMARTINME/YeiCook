@@ -2,7 +2,7 @@
 const mongoose = require('mongoose')
 const dbName = 'YeiCook'
 // mongoose.connect(process.env.DB_LOCAL)
-mongoose.connect(`${process.env.DB_REMOTE}`,{ useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(`${process.env.DB_REMOTE}`, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 // Model

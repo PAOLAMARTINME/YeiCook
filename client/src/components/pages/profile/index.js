@@ -16,6 +16,7 @@ class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            id: this.props.loggedInUser ? this.props.loggedInUser.id : "",
             name: this.props.loggedInUser ? this.props.loggedInUser.name : "",
             username: this.props.loggedInUser ? this.props.loggedInUser.username : "",
             password: '',
@@ -32,7 +33,7 @@ class Profile extends Component {
 
     updateProfile = () => {
         this.userService
-            .profile(this.state)
+            .profile(this.state.id)
             .then(response => this.setState({ user: response.data }))
             .catch(err => console.log(err))
     }

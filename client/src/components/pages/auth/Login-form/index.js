@@ -30,9 +30,10 @@ class LoginForm extends Component {
         this.authService
             .login(this.state)
             .then(response => {
-                this.props.setTheUser(response)
+                this.props.setTheUser(response.data)
+                console.log(response.data)
                 this.props.handleToast(true, 'Sesión iniciada')
-                this.props.history.push('/profile')
+                this.props.history.push('/chefs')
             })
             .catch(err => console.log(err))  
     }

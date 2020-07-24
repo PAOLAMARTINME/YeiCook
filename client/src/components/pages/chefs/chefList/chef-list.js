@@ -55,7 +55,7 @@ class ChefList extends Component {
 
     render() {
         const editingChef = this.state.chef ? this.state.chefs.filter(elm => elm._id === this.state.chef)[0] : {}
-        
+       
         return (
 
             <>
@@ -65,7 +65,7 @@ class ChefList extends Component {
                     }
 
                     <Row>
-                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} handleModal={this.handleModal} deleteChef={this.deleteChef} />))}
+                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} loggedInUser={this.props.loggedInUser} handleModal={this.handleModal} deleteChef={this.deleteChef} />))}
 
                     </Row>
                 </Container>
