@@ -11,6 +11,15 @@ class EditProfile extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            // id: this.props.loggedInUser ? this.props.loggedInUser.id : "",
+            // name: this.props.loggedInUser ? this.props.loggedInUser.name : "",
+            // username: this.props.loggedInUser ? this.props.loggedInUser.username : "",
+            // password: this.props.loggedInUser ? this.props.loggedInUser.password : "",
+            // email: this.props.loggedInUser ? this.props.loggedInUser.email : "",
+            // avatar: this.props.loggedInUser ? this.props.loggedInUser.avatar : "",
+            // location: this.props.loggedInUser ? this.props.loggedInUser.location : "",
+            // contact: this.props.loggedInUser ? this.props.loggedInUser.contact : "",
+            id: this.props.user.id,
             name: this.props.user.name,
             username: this.props.user.username,
             password: this.props.user.password,
@@ -30,7 +39,7 @@ class EditProfile extends Component {
     handleFormSubmit = e => {
         e.preventDefault()
         this.userService
-            .editProfile(this.props.id, this.state)
+            .editProfile(this.state.id, this.state)
             .then(() => this.props.handleProfileSubmit())
             .catch(err => console.log(err))
     }
