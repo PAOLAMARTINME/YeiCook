@@ -4,7 +4,6 @@ import UserService from '../../../service/UserService'
 
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
 
 
@@ -12,16 +11,15 @@ class EditProfile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            username: '',
-            password: '',
-            email: '',
-            avatar: '',
-            location: '',
-            contact: '',
+            name: this.props.user.name,
+            username: this.props.user.username,
+            password: this.props.user.password,
+            email: this.props.user.email,
+            avatar: this.props.user.avatar,
+            location: this.props.user.location,
+            contact: this.props.user.contact,
         }
         this.userService = new UserService()
-        // this.filesService = new FilesService()
     }
 
     handleInputChange = e => {
@@ -29,24 +27,11 @@ class EditProfile extends Component {
         this.setState({ [name]: value })
     }
 
-    // handleFileUpload = e => {
-    //     const uploadData = new FormData()
-    //     uploadData.append("avatar", e.target.files[0])
-
-    //     this.filesService.handleUpload(uploadData)
-    //         .then(response => {
-    //             console.log('Subida de archivo finalizada! La URL de Cloudinray es: ', response.data.secure_url)
-    //             this.setState({ avatar: response.data.secure_url })
-    //         })
-    //         .catch(err => console.log(err))
-    // }
-
-
     handleFormSubmit = e => {
         e.preventDefault()
         this.userService
-            .editProfile(this.state)
-            .then(() => this.props.handleFormSubmit())
+            .editProfile(this.props.id, this.state)
+            .then(() => this.props.handleProfileSubmit())
             .catch(err => console.log(err))
     }
 
@@ -55,11 +40,14 @@ class EditProfile extends Component {
         return (
             <>
                 <Form>
-                    <Form.Row>
-
+                    <Form.Row onSubmit={this.handleFormSubmit}>
                         <Form.Group controlId="title">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control name="name" type="text" placeholder="Nombre completo" value={this.state.name} onChange={this.handleInputChange}/>
+                        </Form.Group>
+                        <Form.Group controlId="title">
+                            <Form.Label>Usuario</Form.Label>
+                            <Form.Control name="username" type="text" placeholder="Nombre de usuario" value={this.state.username} onChange={this.handleInputChange} />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridEmail">
                             <Form.Label>Email</Form.Label>
@@ -77,13 +65,12 @@ class EditProfile extends Component {
                         <Form.Control name="location" type="text" placeholder="Location" value={this.state.location} onChange={this.handleInputChange}/>
                     </Form.Group>
 
-                    {/* <Form.Group >
-                        <Form.Label>Imagen (archivo)</Form.Label>
-                        <Form.Control name="avatar" type="file" onChange={this.handleFileUpload} />
-                    </Form.Group> */}
+                    <Form.Group controlId="formGridAddress1">
+                        <Form.Label>Contacto</Form.Label>
+                        <Form.Control name="contact" type="number" placeholder="Contact" value={this.state.contact} onChange={this.handleInputChange} />
+                    </Form.Group>
 
-
-                    <Button variant="info" type="submit" > Editar</Button>
+                  <Button variant="info" type="submit" > Editar</Button>
 
                 </Form>
             </>

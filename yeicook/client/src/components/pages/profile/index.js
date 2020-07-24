@@ -16,13 +16,14 @@ class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: this.props.loggedInUser ? this.props.loggedInUser.name : "jsja",
-            username: this.props.loggedInUser ? this.props.loggedInUser.username : "Chao",
+            name: this.props.loggedInUser ? this.props.loggedInUser.name : "",
+            username: this.props.loggedInUser ? this.props.loggedInUser.username : "",
             password: '',
-            email: this.props.loggedInUser ? this.props.loggedInUser.email : "Chao",
-            avatar: this.props.loggedInUser ? this.props.loggedInUser.avatar : "dkd",
-            location: this.props.loggedInUser ? this.props.loggedInUser.location : "Chao",
-            contact: this.props.loggedInUser ? this.props.loggedInUser.contact : "Chao",
+            email: this.props.loggedInUser ? this.props.loggedInUser.email : "",
+            avatar: this.props.loggedInUser ? this.props.loggedInUser.avatar : "",
+            location: this.props.loggedInUser ? this.props.loggedInUser.location : "",
+            contact: this.props.loggedInUser ? this.props.loggedInUser.contact : "",
+            user: undefined,
             showModal: false
         }
         this.userService = new UserService()
@@ -31,8 +32,8 @@ class Profile extends Component {
 
     updateProfile = () => {
         this.userService
-            .editProfile()
-            .then(response => this.setState({ response }))
+            .profile()
+            .then(response => this.setState({ user: response.data }))
             .catch(err => console.log(err))
     }
 
@@ -44,16 +45,13 @@ class Profile extends Component {
     }
 
     render() {
-        // const avatar = this.props.loggedInUser ? this.props.loggedInUser.avatar : "dkd";
-        // const name = this.props.loggedInUser ? this.props.loggedInUser.name : "jsja";
-        // const username = this.props.loggedInUser ? this.props.loggedInUser.username : "Chao";
-        // const email = this.props.loggedInUser ? this.props.loggedInUser.email : "Chao";
-        // const location = this.props.loggedInUser ? this.props.loggedInUser.location : "Chao";
-        // const contact = this.props.loggedInUser ? this.props.loggedInUser.contact : "Chao";
+console.log("USERRRR",this.state.user)
         return (
             <>
 
                 <Container as="main" className="profile-page">
+                    
+                    <h1>Bienvenid@ {this.state.username}</h1>
                     
                     {
                         this.props.loggedInUser && <Button onClick={() => this.handleModal(true)} variant="info" size="sm" style={{ marginBottom: '20px' }}>Editar perfil</Button>
@@ -83,7 +81,7 @@ class Profile extends Component {
 
                 <Modal size="lg" show={this.state.showModal} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
-                        <EditProfile handleProfileSubmit={this.handleProfileSubmit} />
+                        <EditProfile user={this.props.loggedInUser} handleProfileSubmit={this.handleProfileSubmit} />
                     </Modal.Body>
                 </Modal>
             </>

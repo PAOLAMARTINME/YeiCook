@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
 const ChefCard = ({ _id, name, avatar, type, specialty, location, contact, certificate, title, img, deleteChef, handleModal }) => {
-    console.log("id", _id)
+  
     return (
         <Col md={3}>
             <Card className="chefcard">
