@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
-const ChefCard = ({ _id, name, avatar, type, specialty, location, contact, certificate, title, img, deleteChef, handleModal, loggedInUser }) => {
+const ChefCard = ({ _id, name, avatar, type, specialty, location, img, deleteChef, handleModal, loggedInUser, incrementMe, count }) => {
   
     return (
         <Col md={3}>
@@ -18,6 +18,7 @@ const ChefCard = ({ _id, name, avatar, type, specialty, location, contact, certi
                     <Card.Text>{specialty}</Card.Text>
                     <Card.Text>{location}</Card.Text>
                     <Card.Img variant="top" src={img} />
+                    <Button onClick={() => incrementMe(_id)} variant="info" className="likes-count" size="sm" style={{ marginBottom: '20px' }}>Me gusta: {count}</Button>
                     <Link to={`/chefs/${_id}`} className="btn btn-info btn-block btn-sm">Ver detalles</Link>
                     <hr></hr>
                     {

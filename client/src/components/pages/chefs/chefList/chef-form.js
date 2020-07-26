@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+
 import ChefService from '../../../../service/ChefService'
+import FilesService from '../../../../service/FilesService'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -21,6 +23,7 @@ class ChefForm extends Component {
             img: editingChef ? editingChef.img : ''
         }
         this.chefService = new ChefService()
+        this.filesService = new FilesService()   
     }
 
     handleInputChange = e => {
@@ -28,17 +31,30 @@ class ChefForm extends Component {
         this.setState({ [name]: value })
     }
 
+    // CLOUDINARYCONFIG  
+    handleFileUpload = e => {
+        const uploadData = new FormData()
+        uploadData.append("avatar", e.target.files[0])
 
+        this.filesService.handleUpload(uploadData)
+            .then(response => {
+                console.log('Subida de archivo finalizada! La URL de Cloudinray es: ', response.data.secure_url)
+                this.setState({ avatar: response.data.secure_url })
+            })
+            .catch(err => console.log(err))
+    }
 
     handleFormSubmit = () => {
 
         if (this.state.id) {
-            this.chefService.editChef(this.state.id, this.state)
+            this.chefService
+                .editChef(this.state.id, this.state)
                 .then(() => this.props.finishFormSubmit())
                 .catch(err => console.log(err))
 
         } else {
-            this.chefService.createChef(this.state)
+            this.chefService
+                .createChef(this.state)
                 .then(() => this.props.finishFormSubmit())
                 .catch(err => console.log(err))
         }
@@ -82,6 +98,12 @@ class ChefForm extends Component {
 
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="title" />
+                    </Form.Group>
+
+                    {/* // CLOUDINARYCONFIG   */}
+                    <Form.Group>
+                        <Form.Label>Imagen (archivo)</Form.Label>
+                        <Form.Control name="avatar" type="file" onChange={this.handleFileUpload} />
                     </Form.Group>
 
                     <Button variant="info" type="submit">Guardar</Button>

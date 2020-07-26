@@ -57,11 +57,11 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" render={props => <Home {...props} />} />
-          <Route path="/profile" render={props => this.state.loggedInUser ? <Profile {...props} loggedInUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
+          <Route path="/profile" render={() => this.state.loggedInUser ? <Profile loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} /> : <Redirect to='/signup' />} />
           <Route path="/signup" render={props => <SignupForm {...props} setTheUser={this.setTheUser} handleToast={this.handleToast} />} />
           <Route path="/login" render={props => <LoginForm {...props} setTheUser={this.setTheUser} handleToast={this.handleToast} />} />
           <Route exact path="/chefs" render={() => <PageChefs setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} />} />
-          <Route path="/chefs/:id" render={props => <ChefDetails {...props} />} />
+          <Route path="/chefs/:id" render= {props => <ChefDetails {...props} />} />
         </Switch>
 
         <Message {...this.state.toast} handleToast={this.handleToast} />

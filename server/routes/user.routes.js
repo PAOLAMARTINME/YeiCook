@@ -1,31 +1,24 @@
-const express = require("express")
+const express = require('express')
 const router = express.Router()
-const passport = require("passport")
 
-const User = require("../models/user.model")
-const bcrypt = require("bcrypt")
-const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
+const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login")
 
-//Users 
+const User = require('../models/user.model')
 
 
-router.get('/profile/:id', (req, res, next) => {
 
-    User
-        .findById(req.params.id)
-        .then(response => res.json(response))
-        .catch(err => next(err))
-})
+// Endpoints
 
-router.get('/editProfile/:id', (req, res, next) => {
+router.get('/getOneProfile/:id', (req, res, next) => {
 
     User
         .findById(req.params.id)
-        .then(response => res.json(response))
+        .then((data) => res.status(200).json(data))
         .catch(err => next(err))
 })
 
-router.put("/editProfile/:id", ensureLoggedIn(), (req, res, next) => {
+
+router.patch("/getOneProfile/:id", ensureLoggedIn(), (req, res, next) => {
     const {
         name,
         username,
@@ -35,6 +28,7 @@ router.put("/editProfile/:id", ensureLoggedIn(), (req, res, next) => {
         location,
         contact,
     } = req.body
+
     User
         .findByIdAndUpdate(req.params.id, {
             name,
@@ -45,19 +39,101 @@ router.put("/editProfile/:id", ensureLoggedIn(), (req, res, next) => {
             location,
             contact,
         }, { new: true })
-        .then(response => res.json(response))
+        .then((data) => res.status(200).json(data))
         .catch(err => next(err))
 })
 
-// router.delete('/profile/:id', ensureLoggedIn(), (req, res) => {
-//     const role = req.user.role
-//     if (role === "ADMIN") {
-//         User
-//             .findByIdAndDelete(req.params.id)
-//             .then(response => res.status(200).json(response))
-//             .catch(err => next(err))
-//     }
+module.exports = router
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const express = require("express")
+// const router = express.Router()
+// const passport = require("passport")
+
+// const User = require("../models/user.model")
+// const bcrypt = require("bcrypt")
+// const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
+
+// //Users 
+
+
+// router.get('/profile', ensureLoggedIn(), (req, res, next) => {
+
+//     User
+//         .find()
+//         .then(response => res.json(response))
+//         .catch(err => next(err))
 // })
 
+// router.get('/editProfile/:id', ensureLoggedIn(), (req, res, next) => {
 
-module.exports = router
+//     User
+//         .findById(req.params.id)
+//         .then(response => res.status(200).json(response))
+//         .catch(err => res.status(404).json({ message: 'No user BBDD' }, err))
+// })
+
+// router.put("/editProfile/:id", ensureLoggedIn(), (req, res, next) => {
+//     const {
+//         name,
+//         username,
+//         password,
+//         email,
+//         avatar,
+//         location,
+//         contact,
+//     } = req.body
+//     User
+//         .findByIdAndUpdate(req.params.id, {
+//             name,
+//             username,
+//             password,
+//             email,
+//             avatar,
+//             location,
+//             contact,
+//         }, { new: true })
+//         .then(response => res.status(200).json(response))
+//         .catch(err => res.status(500).json({ message: 'Could not update user' }, err))
+// })
+
+// // router.delete('/profile/:id', ensureLoggedIn(), (req, res) => {
+// //     const role = req.user.role
+// //     if (role === "ADMIN") {
+// //         User
+// //             .findByIdAndDelete(req.params.id)
+// //             .then(response => res.status(200).json(response))
+// //             .catch(err => next(err))
+// //     }
+// // })
+
+
+// module.exports = router

@@ -16,15 +16,13 @@ class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            id: this.props.loggedInUser ? this.props.loggedInUser.id : "",
-            name: this.props.loggedInUser ? this.props.loggedInUser.name : "",
-            username: this.props.loggedInUser ? this.props.loggedInUser.username : "",
-            password: '',
-            email: this.props.loggedInUser ? this.props.loggedInUser.email : "",
-            avatar: this.props.loggedInUser ? this.props.loggedInUser.avatar : "",
-            location: this.props.loggedInUser ? this.props.loggedInUser.location : "",
-            contact: this.props.loggedInUser ? this.props.loggedInUser.contact : "",
-            user: undefined,
+            id: this.props.loggedInUser.id || '',
+            name: this.props.loggedInUser.name || '',
+            username: this.props.loggedInUser.username || '',
+            email: this.props.loggedInUser.email || '',
+            avatar: this.props.loggedInUser.avatar || '',
+            location: this.props.loggedInUser.location || '',
+            contact: this.props.loggedInUser.contact || '',
             showModal: false
         }
         this.userService = new UserService()
@@ -33,12 +31,14 @@ class Profile extends Component {
 
     updateProfile = () => {
         this.userService
-            .profile(this.props.id)
+            .getOneProfile(this.props.id)
             .then(response => this.setState({ user: response.data }))
             .catch(err => console.log(err))
     }
 
-    handleModal = status => this.setState({ showModal: status })
+    handleModal = (status, id) => this.setState({ showModal: status, user: id }) 
+
+    onHide = () => this.setState({ showModal: false })
 
     handleProfileSubmit = () => {
         this.handleModal(false)
@@ -46,35 +46,35 @@ class Profile extends Component {
     }
 
     render() {
-console.log("USERRRR",this.state.user)
+     
         return (
             <>
 
                 <Container as="main" className="profile-page">
                     
-                    <h1>Bienvenid@ {this.state.username}</h1>
+                    <h1>Bienvenid@ {this.props.loggedInUser.username}</h1>
                     
                     {
                         this.props.loggedInUser && <Button onClick={() => this.handleModal(true)} variant="info" size="sm" style={{ marginBottom: '20px' }}>Editar perfil</Button>
                     }
                         <Row>
-                        <Image className="avatarDefault" src={this.state.avatar}></Image>
+                        <Image className="avatarDefault" src={this.props.loggedInUser.avatar}></Image>
                         </Row>
 
                         <Row>
-                        <h1>{this.state.name}</h1>
+                        <h1>{this.props.loggedInUser.name}</h1>
                         </Row>
                         <Row>
-                        <h1>{this.state.username}</h1>
+                        <h1>{this.props.loggedInUser.username}</h1>
                         </Row>
                         <Row>
-                        <h1>{this.state.email}</h1>
+                        <h1>{this.props.loggedInUser.email}</h1>
                         </Row>
                         <Row>
-                        <h1>{this.state.location}</h1>
+                        <h1>{this.props.loggedInUser.location}</h1>
                         </Row>
                         <Row>
-                        <h1>{this.state.contact}</h1>
+                        <h1>{this.props.loggedInUser.contact}</h1>
                         </Row>
 
                     
@@ -82,9 +82,11 @@ console.log("USERRRR",this.state.user)
 
                 <Modal size="lg" show={this.state.showModal} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
-                        <EditProfile user={this.props.loggedInUser} handleProfileSubmit={this.handleProfileSubmit} />
+                        {this.state.showModal ? 
+                            <EditProfile {...this.state} loggedInUser={this.props.loggedInUser} setTheUser={this.props.setTheUser} handleProfileSubmit={this.handleProfileSubmit} closeModal={this.onHide}/> : null}
                     </Modal.Body>
                 </Modal>
+
             </>
 
         )

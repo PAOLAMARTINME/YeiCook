@@ -21,6 +21,7 @@ class ChefList extends Component {
             Chef: null,
             showModal: false,
             isCreating: true,
+            count: 0
       
         }
         this.chefService = new ChefService()
@@ -52,6 +53,16 @@ class ChefList extends Component {
         this.handleModal(false)
         this.updateChefList()
     }
+    
+
+    incrementMe = (id) => {
+        this.chefService.like(id)
+        let newCount = this.state.count + 1
+        this.setState({
+            count: newCount
+        }) 
+    }
+
 
     render() {
         const editingChef = this.state.chef ? this.state.chefs.filter(elm => elm._id === this.state.chef)[0] : {}
@@ -64,8 +75,9 @@ class ChefList extends Component {
                         this.props.loggedInUser && this.props.loggedInUser.role === "ADMIN" ? <Button onClick={() => this.handleModal(true)} variant="info" size="sm" style={{ marginBottom: '20px' }}>Crear nuevo chef</Button> : null
                     }
 
+
                     <Row>
-                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} loggedInUser={this.props.loggedInUser} handleModal={this.handleModal} deleteChef={this.deleteChef} />))}
+                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} loggedInUser={this.props.loggedInUser} like={this.like} handleModal={this.handleModal} deleteChef={this.deleteChef} incrementMe={this.incrementMe} />))}
 
                     </Row>
                 </Container>

@@ -5,6 +5,7 @@ const { ensureLoggedIn, ensureLoggedOut} = require("connect-ensure-login")
 
 const Chef = require('../models/chefCard.model')
 const User = require('../models/user.model')
+const Like = require('../models/likes.model')
 
 // Role checker middleware
 const checkRole = rolesToCheck => (req, res, next) => rolesToCheck.includes(req.user.role) ? next() : res.redirect('/login')
@@ -14,6 +15,9 @@ router.get('/getAllChefs', (req, res, next) => {
 
     Chef
         .find()
+        .populate('user')
+        // .populate('comments')
+        .populate('likes')
         .then(response => res.json(response))
         .catch(err => next(err))
 
@@ -80,6 +84,28 @@ router.delete('/chef/:id', checkRole(['ADMIN']),ensureLoggedIn(), (req, res) => 
         
     })
 
+router.post('/getOneChef/:id/like', (req, res, next) => {
+    const params = { chef: req.params.id, user: req.currentUser._id };
+    console.log(params);
 
+    Like.findOne(params)
+        .then(like => {
+            if (like) {
+                Like.findByIdAndRemove(like._id)
+                    .then(() => {
+                        res.json({ like: -1 });
+                    })
+                    .catch(next);
+            } else {
+                const newLike = new Like(params);
+                newLike.save()
+                    .then(() => {
+                        res.json({ like: 1 });
+                    })
+                    .catch(next);
+            }
+        })
+        .catch(next);
+})
 
 module.exports = router

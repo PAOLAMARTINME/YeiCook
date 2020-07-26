@@ -40,6 +40,25 @@ const ChefSchema = new mongoose.Schema({
     timestamps: true
 })
 
+
+//Likes
+
+ChefSchema.virtual('likes', {
+    ref: 'Like',
+    localField: '_id',
+    foreignField: 'Chef',
+    justOne: false
+});
+
+
+//Comments
+// ChefSchema.virtual('comments', {
+//     ref: 'Comment',
+//     localField: '_id',
+//     foreignField: 'chef',
+//     justOne: false,
+// });
+
 const Chef = mongoose.model("Chef", ChefSchema)
 
 module.exports = Chef

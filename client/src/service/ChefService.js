@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default class ChefService {
-
+    
     constructor() {
 
         this.service = axios.create({
@@ -15,4 +15,5 @@ export default class ChefService {
     editChef = (id,data) => this.service.put(`/getOneChef/${id}`,data)
     createChef = chef => this.service.post('/newChef', chef)
     deleteChef = (id) => this.service.delete(`/chef/${id}`)
+    like = (id, data) => this.service.post(`/getOneChef/${id}/like`, data)
 }
