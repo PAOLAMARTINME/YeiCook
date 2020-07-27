@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import ChefService from '../../../../service/ChefService'
-import FilesService from '../../../../service/FilesService'
+// import FilesService from '../../../../service/FilesService'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -23,7 +23,7 @@ class ChefForm extends Component {
             img: editingChef ? editingChef.img : ''
         }
         this.chefService = new ChefService()
-        this.filesService = new FilesService()   
+        // this.filesService = new FilesService()   
     }
 
     handleInputChange = e => {
@@ -31,30 +31,21 @@ class ChefForm extends Component {
         this.setState({ [name]: value })
     }
 
-    // CLOUDINARYCONFIG  
-    handleFileUpload = e => {
+    handleFormSubmit = e => {
+        e.preventDefault()
         const uploadData = new FormData()
-        uploadData.append("avatar", e.target.files[0])
-
-        this.filesService.handleUpload(uploadData)
-            .then(response => {
-                console.log('Subida de archivo finalizada! La URL de Cloudinray es: ', response.data.secure_url)
-                this.setState({ avatar: response.data.secure_url })
-            })
-            .catch(err => console.log(err))
-    }
-
-    handleFormSubmit = () => {
-
+        Object.keys(this.state).forEach((key) => {
+            uploadData.append(key, this.state[key])
+        })
         if (this.state.id) {
             this.chefService
-                .editChef(this.state.id, this.state)
+                .editChef(this.state.id, this.state, uploadData)
                 .then(() => this.props.finishFormSubmit())
                 .catch(err => console.log(err))
 
         } else {
             this.chefService
-                .createChef(this.state)
+                .createChef(this.state, uploadData)
                 .then(() => this.props.finishFormSubmit())
                 .catch(err => console.log(err))
         }
@@ -103,7 +94,12 @@ class ChefForm extends Component {
                     {/* // CLOUDINARYCONFIG   */}
                     <Form.Group>
                         <Form.Label>Imagen (archivo)</Form.Label>
-                        <Form.Control name="avatar" type="file" onChange={this.handleFileUpload} />
+                        <Form.Control name="avatar" type="file" onChange={this.handleFormSubmit} />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Imagen plato (archivo)</Form.Label>
+                        <Form.Control name="img" type="file" onChange={this.handleFormSubmit} />
                     </Form.Group>
 
                     <Button variant="info" type="submit">Guardar</Button>

@@ -5,7 +5,7 @@ const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login")
 
 const User = require('../models/user.model')
 
-
+const uploader = require('../configs/cloudinary.config');
 
 // Endpoints
 
@@ -18,24 +18,21 @@ router.get('/getOneProfile/:id', (req, res, next) => {
 })
 
 
-router.patch("/getOneProfile/:id", ensureLoggedIn(), (req, res, next) => {
+router.patch("/getOneProfile/:id", ensureLoggedIn(), uploader.single("avatar"), (req, res, next) => {
     const {
         name,
         username,
-        password,
         email,
-        avatar,
         location,
         contact,
     } = req.body
-
+    const tempAvatar = req.file ? req.file.url : req.user.avatar
     User
         .findByIdAndUpdate(req.params.id, {
             name,
             username,
-            password,
             email,
-            avatar,
+            avatar: tempAvatar,
             location,
             contact,
         }, { new: true })

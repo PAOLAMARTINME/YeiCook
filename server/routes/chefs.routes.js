@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
+const uploader = require('../configs/cloudinary.config');
+
 const { ensureLoggedIn, ensureLoggedOut} = require("connect-ensure-login")
 
 const Chef = require('../models/chefCard.model')
@@ -32,10 +34,9 @@ router.get('/getOneChef/:id', (req, res, next) => {
 })
 
 
-router.put("/getOneChef/:id", checkRole(['ADMIN']),ensureLoggedIn(), (req, res, next) => {
+router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.fields([{ name: 'avatar', maxCount: 1 }, { name: 'img', maxCount: 8 }]), (req, res, next) => {
         const {
             name,
-            avatar,
             email,
             type,
             specialty,
@@ -43,13 +44,13 @@ router.put("/getOneChef/:id", checkRole(['ADMIN']),ensureLoggedIn(), (req, res, 
             contact,
             certificate,
             title,
-            img
         } = req.body
-
+    const tempImg = req.file ? req.file.url : req.user.img
+    const tempAvatar = req.file ? req.file.url : req.user.avatar
         Chef
             .findByIdAndUpdate(req.params.id, {
                 name,
-                avatar,
+                avatar: tempAvatar,
                 email,
                 type,
                 specialty,
@@ -57,17 +58,16 @@ router.put("/getOneChef/:id", checkRole(['ADMIN']),ensureLoggedIn(), (req, res, 
                 contact,
                 certificate,
                 title,
-                img
+                img: tempImg
             }, { new: true })
             .then(response => res.json(response))
             .catch(err => next(err))
 })
 
 
-//NO EDITA
-
-router.post('/newChef', checkRole(['ADMIN']),ensureLoggedIn(), (req, res, next) => {
-
+router.post('/newChef', checkRole(['ADMIN']), ensureLoggedIn(), uploader.fields([{ name: 'avatar', maxCount: 1 }, { name: 'img', maxCount: 8 }]), (req, res, next) => {
+    const tempImg = req.file ? req.file.url : req.user.img
+    const tempAvatar = req.file ? req.file.url : req.user.avatar
         Chef
             .create(req.body)
             .then(response => res.json(response))
@@ -76,7 +76,7 @@ router.post('/newChef', checkRole(['ADMIN']),ensureLoggedIn(), (req, res, next) 
 })
 
 router.delete('/chef/:id', checkRole(['ADMIN']),ensureLoggedIn(), (req, res) => {
-
+ 
             Chef
                 .findByIdAndDelete(req.params.id)
                 .then(response => res.status(200).json(response))

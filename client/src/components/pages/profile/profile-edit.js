@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import UserService from '../../../service/UserService'
-import FilesService from '../../../service/FilesService'
 
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
@@ -12,49 +11,33 @@ class EditProfile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            // id: this.props.id,
-            // name: this.props.loggedInUser ? this.props.loggedInUser.name : "",
-            // username: this.props.loggedInUser ? this.props.loggedInUser.username : "",
-            // password: this.props.loggedInUser ? this.props.loggedInUser.password : "",
-            // email: this.props.loggedInUser ? this.props.loggedInUser.email : "",
-            // avatar: this.props.loggedInUser ? this.props.loggedInUser.avatar : "",
-            // location: this.props.loggedInUser ? this.props.loggedInUser.location : "",
-            // contact: this.props.loggedInUser ? this.props.loggedInUser.contact : "",
-            name: this.props.name,
-            username: this.props.username,
-            email: this.props.email,
-            avatar: this.props.avatar,
-            location: this.props.location,
-            contact: this.props.contact,
+            id: this.props.loggedInUser._id,
+            name: this.props.loggedInUser.name,
+            username: this.props.loggedInUser.username,
+            email: this.props.loggedInUser.email,
+            avatar: this.props.loggedInUser.avatar,
+            location: this.props.loggedInUser.location,
+            contact: this.props.loggedInUser.contact,
         }
         this.userService = new UserService()
-        this.filesService = new FilesService()
     }
 
     handleInputChange = e => {
-        const { name, value } = e.target
-        this.setState({ [name]: value })
-    }
-
-    // CLOUDINARYCONFIG  
-    handleFileUpload = e => {
-        const uploadData = new FormData()
-        uploadData.append("avatar", e.target.files[0])
-
-        this.filesService.handleUpload(uploadData)
-            .then(response => {
-                console.log('Subida de archivo finalizada! La URL de Cloudinray es: ', response.data.secure_url)
-                this.setState({ avatar: response.data.secure_url })
-            })
-            .catch(err => console.log(err))
+        const value= e.target.type === "file" ? e.target.files[0]: e.target.value
+        this.setState({ [e.target.name]: value })
     }
 
     handleFormSubmit = e => {
         e.preventDefault()
+        const uploadData = new FormData()
+        Object.keys(this.state).forEach((key) => {
+            uploadData.append(key, this.state[key])
+        })
         this.userService
-            .editProfile(this.props.id, this.state)
-            .then(() => this.props.handleProfileSubmit())
+            .editProfile(this.props.loggedInUser._id, uploadData)
+            .then((response) => this.props.setTheUser(response.data))
             .catch(err => console.log(err))
+        
     }
 
     render() {
@@ -67,7 +50,7 @@ class EditProfile extends Component {
                         {/* // CLOUDINARYCONFIG   */}
                         <Form.Group>
                             <Form.Label>Imagen (archivo)</Form.Label>
-                            <Form.Control name="avatar" type="file" onChange={this.handleFileUpload} />
+                            <Form.Control name="avatar" type="file" onChange={this.handleInputChange} />
                         </Form.Group>
                         
                         <Form.Group controlId="title">

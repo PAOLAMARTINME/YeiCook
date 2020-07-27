@@ -67,6 +67,7 @@ router.post('/signup', (req, res, next) => {
 router.post('/login', ensureLoggedOut(),(req, res, next) => {
     passport.authenticate('local', (err, theUser, failureDetails) => {
         if (err) {
+            debugger
             res.status(500).json({ message: 'Something went wrong authenticating user' });
             return;
         }

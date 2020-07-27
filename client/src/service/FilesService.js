@@ -1,15 +1,15 @@
-// CLOUDINARYCONFIG
+// // CLOUDINARYCONFIG
 
-import axios from 'axios'
+// import axios from 'axios'
 
-export default class FilesService {
+// export default class FilesService {
 
-    constructor() {
-        this.service = axios.create({
-            baseURL: `${process.env.REACT_APP_API_URL}/files`,
-            withCredentials: true
-        })
-    }
+//     constructor() {
+//         this.service = axios.create({
+//             baseURL: `${process.env.REACT_APP_API_URL}/files`,
+//             withCredentials: true
+//         })
+//     }
 
-    handleUpload = theFile => this.service.post('/upload', theFile)
-}
+//     handleUpload = theFile => this.service.post('/upload', theFile)
+// }

@@ -11,13 +11,8 @@ export default class UserService {
     }
 
 
-    // profile = () => this.service.get(`/profile`)
-    // editProfile = (id) => this.service.get(`/editProfile/${id}`)
-    // editProfile = (id, data) => this.service.put(`/editProfile/${id}`, data)
-    // deleteProfile = (id) => this.service.delete(`/profile/${id}`)
-
     getOneProfile = (id) => this.service.get(`/getOneProfile/${id}`)
-    editProfile = (credentials, id) => this.service.patch(`/getOneProfile/${id}`, credentials)
+    editProfile = (id, credentials) => this.service.patch(`/getOneProfile/${id}`, credentials)
 
 
 }
