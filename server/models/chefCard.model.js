@@ -50,15 +50,6 @@ ChefSchema.virtual('likes', {
     justOne: false
 });
 
-
-//Comments
-// ChefSchema.virtual('comments', {
-//     ref: 'Comment',
-//     localField: '_id',
-//     foreignField: 'chef',
-//     justOne: false,
-// });
-
 const Chef = mongoose.model("Chef", ChefSchema)
 
 module.exports = Chef

@@ -17,8 +17,6 @@ router.get('/getAllChefs', (req, res, next) => {
 
     Chef
         .find()
-        .populate('user')
-        // .populate('comments')
         .populate('likes')
         .then(response => res.json(response))
         .catch(err => next(err))
@@ -34,7 +32,7 @@ router.get('/getOneChef/:id', (req, res, next) => {
 })
 
 
-router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.fields([{ name: 'avatar', maxCount: 1 }, { name: 'img', maxCount: 8 }]), (req, res, next) => {
+router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.single("avatar"), (req, res, next) => {
         const {
             name,
             email,
@@ -45,8 +43,8 @@ router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.f
             certificate,
             title,
         } = req.body
-    const tempImg = req.file ? req.file.url : req.user.img
-    const tempAvatar = req.file ? req.file.url : req.user.avatar
+    const tempImg = req.file ? req.file.url : req.body.img
+    const tempAvatar = req.file ? req.file.url : req.body.avatar
         Chef
             .findByIdAndUpdate(req.params.id, {
                 name,
@@ -65,11 +63,33 @@ router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.f
 })
 
 
-router.post('/newChef', checkRole(['ADMIN']), ensureLoggedIn(), uploader.fields([{ name: 'avatar', maxCount: 1 }, { name: 'img', maxCount: 8 }]), (req, res, next) => {
-    const tempImg = req.file ? req.file.url : req.user.img
-    const tempAvatar = req.file ? req.file.url : req.user.avatar
+router.post('/newChef', checkRole(['ADMIN']), ensureLoggedIn(), uploader.single("avatar"), (req, res, next) => {
+    const {
+        name,
+        email,
+        type,
+        specialty,
+        location,
+        contact,
+        certificate,
+        title,
+    } = req.body;
+
+    const tempImg = req.file ? req.file.url : req.body.img
+    const tempAvatar = req.file ? req.file.url : req.body.avatar
         Chef
-            .create(req.body)
+            .create({
+                name,
+                avatar: tempAvatar,
+                email,
+                type,
+                specialty,
+                location,
+                contact,
+                certificate,
+                title,
+                img: tempImg
+            })
             .then(response => res.json(response))
             .catch(err => next(err))
 
@@ -85,7 +105,7 @@ router.delete('/chef/:id', checkRole(['ADMIN']),ensureLoggedIn(), (req, res) => 
     })
 
 router.post('/getOneChef/:id/like', (req, res, next) => {
-    const params = { chef: req.params.id, user: req.currentUser._id };
+    const params = { chef: req.params.id};
     console.log(params);
 
     Like.findOne(params)
@@ -107,5 +127,6 @@ router.post('/getOneChef/:id/like', (req, res, next) => {
         })
         .catch(next);
 })
+
 
 module.exports = router

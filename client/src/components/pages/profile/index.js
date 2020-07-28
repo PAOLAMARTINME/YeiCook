@@ -38,8 +38,6 @@ class Profile extends Component {
 
     handleModal = (status, id) => this.setState({ showModal: status, user: id }) 
 
-    onHide = () => this.setState({ showModal: false })
-
     handleProfileSubmit = () => {
         this.handleModal(false)
         this.updateProfile()
@@ -65,16 +63,16 @@ class Profile extends Component {
                         <h1>{this.props.loggedInUser.name}</h1>
                         </Row>
                         <Row>
-                        <h1>{this.props.loggedInUser.username}</h1>
+                        <h4>{this.props.loggedInUser.username}</h4>
                         </Row>
                         <Row>
-                        <h1>{this.props.loggedInUser.email}</h1>
+                        <h4>{this.props.loggedInUser.email}</h4>
                         </Row>
                         <Row>
-                        <h1>{this.props.loggedInUser.location}</h1>
+                        <h4>{this.props.loggedInUser.location}</h4>
                         </Row>
                         <Row>
-                        <h1>{this.props.loggedInUser.contact}</h1>
+                        <h4>{this.props.loggedInUser.contact}</h4>
                         </Row>
 
                     
@@ -83,7 +81,7 @@ class Profile extends Component {
                 <Modal size="lg" show={this.state.showModal} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
                         {this.state.showModal ? 
-                            <EditProfile {...this.state} loggedInUser={this.props.loggedInUser} setTheUser={this.props.setTheUser} handleProfileSubmit={this.handleProfileSubmit} closeModal={this.onHide}/> : null}
+                            <EditProfile {...this.state} loggedInUser={this.props.loggedInUser} setTheUser={this.props.setTheUser} handleProfileSubmit={this.handleProfileSubmit} /> : null}
                     </Modal.Body>
                 </Modal>
 

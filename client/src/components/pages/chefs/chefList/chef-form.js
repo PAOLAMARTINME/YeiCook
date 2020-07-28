@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import ChefService from '../../../../service/ChefService'
-// import FilesService from '../../../../service/FilesService'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -22,13 +21,13 @@ class ChefForm extends Component {
             title: 'true',
             img: editingChef ? editingChef.img : ''
         }
-        this.chefService = new ChefService()
-        // this.filesService = new FilesService()   
+        this.chefService = new ChefService() 
     }
 
     handleInputChange = e => {
         const { name, value } = e.target
         this.setState({ [name]: value })
+        
     }
 
     handleFormSubmit = e => {
@@ -39,13 +38,13 @@ class ChefForm extends Component {
         })
         if (this.state.id) {
             this.chefService
-                .editChef(this.state.id, this.state, uploadData)
+                .editChef(this.state.id, uploadData)
                 .then(() => this.props.finishFormSubmit())
                 .catch(err => console.log(err))
 
         } else {
             this.chefService
-                .createChef(this.state, uploadData)
+                .createChef(uploadData)
                 .then(() => this.props.finishFormSubmit())
                 .catch(err => console.log(err))
         }
@@ -84,16 +83,16 @@ class ChefForm extends Component {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="certificate" />
+                        <Form.Check onChange={this.handleInputChange} value={this.state.certificate} type="checkbox" label="Certificado manipulador de alimentos" />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="title" />
+                        <Form.Check onChange={this.handleInputChange} value={this.state.title} type="checkbox" label="Titulo Profesional" />
                     </Form.Group>
 
                     {/* // CLOUDINARYCONFIG   */}
                     <Form.Group>
-                        <Form.Label>Imagen (archivo)</Form.Label>
+                        <Form.Label>Avatar (archivo)</Form.Label>
                         <Form.Control name="avatar" type="file" onChange={this.handleFormSubmit} />
                     </Form.Group>
 

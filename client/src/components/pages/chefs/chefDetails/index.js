@@ -47,9 +47,6 @@ class ChefDetails extends Component {
 
                             <Link className="btn btn-info btn-md" to='/chefs'>Volver</Link>
                         </Col>
-                        {/* <Col md={{ span: 4, offset: 1 }}>
-                            <img src={this.state.chefDetails.img} alt="Imagen" />
-                        </Col> */}
                     </Row>
 
                 </Container>

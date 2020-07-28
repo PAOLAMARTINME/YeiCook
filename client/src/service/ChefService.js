@@ -15,5 +15,5 @@ export default class ChefService {
     editChef = (id,data) => this.service.put(`/getOneChef/${id}`,data)
     createChef = chef => this.service.post('/newChef', chef)
     deleteChef = (id) => this.service.delete(`/chef/${id}`)
-    like = (id, data) => this.service.post(`/getOneChef/${id}/like`, data)
+    like = (id) => this.service.post(`/getOneChef/${id}/like`)
 }

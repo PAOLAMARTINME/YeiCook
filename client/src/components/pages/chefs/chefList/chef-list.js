@@ -22,7 +22,7 @@ class ChefList extends Component {
             showModal: false,
             isCreating: true,
             count: 0
-      
+
         }
         this.chefService = new ChefService()
     }
@@ -45,28 +45,32 @@ class ChefList extends Component {
             .catch(err => console.log(err))
     }
 
-    handleModal = (status,id) => this.setState({ showModal: status, chef:id }) 
-    
+    handleModal = (status, id) => this.setState({ showModal: status, chef: id })
 
-    
+
+
     finishFormSubmit = () => {
         this.handleModal(false)
         this.updateChefList()
     }
-    
+
 
     incrementMe = (id) => {
-        this.chefService.like(id)
         let newCount = this.state.count + 1
-        this.setState({
-            count: newCount
-        }) 
+        this.chefService
+            .like(id)
+            .then(response => {
+                const newLikes = this.state.chefs.filter(chef => chef._id !== id)
+                console.log('HOLA', response.data)
+                this.setState({ count: newCount})
+            })
+            .catch(err => console.log('HAY UN PROBLEMA',err))
     }
 
 
     render() {
         const editingChef = this.state.chef ? this.state.chefs.filter(elm => elm._id === this.state.chef)[0] : {}
-       
+        console.log('HOLA', this.state.chefs)
         return (
 
             <>
@@ -77,23 +81,23 @@ class ChefList extends Component {
 
 
                     <Row>
-                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} loggedInUser={this.props.loggedInUser} like={this.like} handleModal={this.handleModal} deleteChef={this.deleteChef} incrementMe={this.incrementMe} />))}
+                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} loggedInUser={this.props.loggedInUser} like={this.like} handleModal={this.handleModal} deleteChef={this.deleteChef} incrementMe={this.incrementMe} count={this.state.count} />))}
 
                     </Row>
                 </Container>
 
-               <Modal size="lg"
+                <Modal size="lg"
                     show={this.state.showModal}
                     onHide={() => this.handleModal(false)}>
-                        <Modal.Body>
+                    <Modal.Body>
                         {this.state.isCreating
                             ?
-                            <ChefForm onHide={this.onHide} editingChef={editingChef}  finishFormSubmit={this.finishFormSubmit} />
+                            <ChefForm onHide={this.onHide} editingChef={editingChef} finishFormSubmit={this.finishFormSubmit} />
                             :
-                            <ChefForm onHide={this.onHide} finishFormSubmit={this.finishFormSubmit} isCreating/>
+                            <ChefForm onHide={this.onHide} finishFormSubmit={this.finishFormSubmit} isCreating />
                         }
-                        </Modal.Body>
-                </Modal> 
+                    </Modal.Body>
+                </Modal>
 
             </>
         )

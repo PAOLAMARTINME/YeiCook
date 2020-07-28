@@ -2,6 +2,9 @@ import React from 'react'
 
 import { Link } from 'react-router-dom'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+
 import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
@@ -18,7 +21,13 @@ const ChefCard = ({ _id, name, avatar, type, specialty, location, img, deleteChe
                     <Card.Text>{specialty}</Card.Text>
                     <Card.Text>{location}</Card.Text>
                     <Card.Img variant="top" src={img} />
-                    <Button onClick={() => incrementMe(_id)} variant="info" className="likes-count" size="sm" style={{ marginBottom: '20px' }}>Me gusta: {count}</Button>
+
+                    <div onClick={() => incrementMe(_id)}  style={{ alignSelf: 'center' }}>
+                        <FontAwesomeIcon icon={faHeart} size="lg" color="black" className="likes-count" />
+                        {count}
+                    </div>
+
+                   
                     <Link to={`/chefs/${_id}`} className="btn btn-info btn-block btn-sm">Ver detalles</Link>
                     <hr></hr>
                     {
@@ -34,3 +43,24 @@ const ChefCard = ({ _id, name, avatar, type, specialty, location, img, deleteChe
 }
 
 export default ChefCard
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <Button onClick={() => incrementMe(_id)} variant="info" className="likes-count" size="sm" style={{ marginBottom: '20px' }}>Me gusta: {count}</Button> */ }
