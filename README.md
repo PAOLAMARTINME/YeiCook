@@ -1,9 +1,11 @@
 # YeiCook
 Contratación de chefs
 
+
 TITULO:
 
 Proyecto YeiCook - 
+
 
 HERRAMIENTAS 🛠️: 
 
@@ -16,12 +18,15 @@ npm i en el directorio
 
 Crear un .env archivo en el server y añadir database (DB) y port (PORT) junto con (CLOUDINARY) y para cors (DOMAIN)
 
+
+PARA INICIAR APP:
+
 -En server npm run dev
 
 -En client npm start
 
 
-Autor ✒️
+AUTORA ✒️
 
 Paola Martin Espinoza - Trabajo Completo - paolamartinme
 
