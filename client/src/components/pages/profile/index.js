@@ -11,6 +11,9 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
+import Card from 'react-bootstrap/Card'
+import ListGroup from 'react-bootstrap/ListGroup'
+
 
 class Profile extends Component {
     constructor(props) {
@@ -57,23 +60,36 @@ class Profile extends Component {
                     }
                         <Row>
                         <Image className="avatarDefault" src={this.props.loggedInUser.avatar}></Image>
-                        </Row>
-
-                        <Row>
+                    </Row>
+                    
+                    <Card style={{ width: '45rem' }}>
+                        <ListGroup variant="flush">
+                            <ListGroup.Item><h2>{this.props.loggedInUser.name}</h2></ListGroup.Item>
+                            <ListGroup.Item><h5>Nombre: {this.props.loggedInUser.username}</h5></ListGroup.Item>
+                            <ListGroup.Item><h5>Email: {this.props.loggedInUser.email}</h5></ListGroup.Item>
+                            <ListGroup.Item><h5>Localización: {this.props.loggedInUser.location}</h5></ListGroup.Item>
+                            <ListGroup.Item><h5>Contacto: {this.props.loggedInUser.contact}</h5></ListGroup.Item>
+                        </ListGroup>
+                    </Card>
+                        {/* <Row>
                         <h1>{this.props.loggedInUser.name}</h1>
+                        </Row> */}
+                        {/* <Row>
+                        <h3>Nombre:</h3>
+                        <h5>{this.props.loggedInUser.username}</h5>
                         </Row>
                         <Row>
-                        <h4>{this.props.loggedInUser.username}</h4>
+                        <h3>Email:</h3>
+                        <h5>{this.props.loggedInUser.email}</h5>
                         </Row>
                         <Row>
-                        <h4>{this.props.loggedInUser.email}</h4>
+                        <h3>Localización:</h3>
+                        <h5>{this.props.loggedInUser.location}</h5>
                         </Row>
-                        <Row>
-                        <h4>{this.props.loggedInUser.location}</h4>
-                        </Row>
-                        <Row>
-                        <h4>{this.props.loggedInUser.contact}</h4>
-                        </Row>
+                       <Row>
+                        <h3>Contacto:</h3>
+                        <h5>{this.props.loggedInUser.contact}</h5>
+                        </Row> */}
 
                     
                 </Container>

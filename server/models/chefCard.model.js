@@ -13,11 +13,11 @@ const ChefSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['cocktail/catering', 'desayunos', 'comidas', 'cenas']
+        enum: ['Cocktail/catering', 'Desayunos', 'Comidas', 'Cenas']
     },
     specialty: {
         type: String,
-        enum: ['vegana', 'vegetariana', 'sin gluten', 'saludable','diabetes', 'mediterranea']
+        enum: ['Vegana', 'Vegetariana', 'Sin gluten', 'Saludable','Apto para diabéticos', 'Mediterránea']
     },
     location: {
         type: String
@@ -49,6 +49,7 @@ ChefSchema.virtual('likes', {
     foreignField: 'Chef',
     justOne: false
 });
+
 
 const Chef = mongoose.model("Chef", ChefSchema)
 

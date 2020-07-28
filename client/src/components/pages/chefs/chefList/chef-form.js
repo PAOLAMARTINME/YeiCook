@@ -63,14 +63,32 @@ class ChefForm extends Component {
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Label>Tipo de comida</Form.Label>
-                        <Form.Control onChange={this.handleInputChange} value={this.state.type} name="type" type="text" />
+                        <Form.Label>Tipo de servicio</Form.Label>
+                        <Form.Control onChange={this.handleInputChange} value={this.state.type} name="type" type="text" as="select" custom>
+                            <option>Cocktail/catering</option>
+                            <option>Desayunos</option>
+                            <option>Comidas</option>
+                            <option>Cenas</option>
+                        </Form.Control>
                     </Form.Group>
 
-                    <Form.Group>
+                    {/* <Form.Group>
                         <Form.Label>Especialidad</Form.Label>
                         <Form.Control onChange={this.handleInputChange} value={this.state.specialty} name="specialty" type="text" />
-                    </Form.Group>
+                    </Form.Group> */}
+                    <Form>
+                        <Form.Group controlId="exampleForm.SelectCustom">
+                            <Form.Label>Especilidad</Form.Label>
+                            <Form.Control onChange={this.handleInputChange} value={this.state.specialty} name="specialty" type="text" as="select" custom>
+                                <option>Vegana</option>
+                                <option>Vegetariana</option>
+                                <option>Sin gluten</option>
+                                <option>Saludable</option>
+                                <option>Apto para diabéticos</option>
+                                <option>Mediterranea</option>
+                            </Form.Control>
+                        </Form.Group>
+                    </Form>
 
                     <Form.Group>
                         <Form.Label>Localización</Form.Label>

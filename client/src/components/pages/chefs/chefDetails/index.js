@@ -39,7 +39,7 @@ class ChefDetails extends Component {
                     <Row>
                         <Col md={{ span: 5, offset: 1 }}>
                             <img src={this.state.chefDetails.avatar} alt="Avatar" />
-                            <p><b>Tipo de comida:</b> {this.state.chefDetails.type}</p>
+                            <p><b>Tipo de servicio:</b> {this.state.chefDetails.type}</p>
                             <p><b>Especialidad:</b> {this.state.chefDetails.specialty}</p>
                             <p><b>Localización:</b> {this.state.chefDetails.location}</p>
                             <p><b>Contacto:</b> {this.state.chefDetails.contact}</p>

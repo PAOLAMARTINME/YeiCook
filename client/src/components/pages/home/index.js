@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import { Link, NavLink } from 'react-router-dom'
+
 import './home.css'
 
 import Figure from 'react-bootstrap/Figure'
@@ -19,10 +19,14 @@ class Home extends Component {
     render() {
         return (
             <>
+                
                 <Figure className="BackHome">
-                    <Figure.Image alt="fondo" src="/images/AdobeStock_314133185.jpeg"/>
-                </Figure>
 
+                        {/* <h1>Nunca fue tan facil ser buen anfitrión</h1> */}
+                    
+                        <Figure.Image alt="fondo" src="/images/AdobeStock_314133185.jpeg" />
+                </Figure>
+                
                 <footer className="footer">
                     <CardGroup className="text-center">
                         <Card>
@@ -36,7 +40,7 @@ class Home extends Component {
                                 <Card.Text>Dirección: A domiciliooooo!!! </Card.Text>
                                 <Card.Title>
                                     ¡SORPRISE!
-               </Card.Title>
+                                </Card.Title>
                             </Card.Body>
                         </Card>
                     </CardGroup>

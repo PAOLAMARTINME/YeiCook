@@ -13,7 +13,6 @@ import Modal from 'react-bootstrap/Modal'
 
 
 class ChefList extends Component {
-
     constructor(props) {
         super(props)
         this.state = {
@@ -22,7 +21,6 @@ class ChefList extends Component {
             showModal: false,
             isCreating: true,
             count: 0
-
         }
         this.chefService = new ChefService()
     }
@@ -56,21 +54,41 @@ class ChefList extends Component {
 
 
     incrementMe = (id) => {
-        let newCount = this.state.count + 1
+        let newCount
+        const chefFilter = this.state.chefs.filter((chef) => {
+            console.log(chef._id === id)
+            if (chef._id === id) {
+                return newCount = this.state.count + 1
+// con return viene el objeto sin return viene un array vacio
+            }
+        });
+        console.log(chefFilter)
         this.chefService
             .like(id)
             .then(response => {
-                const newLikes = this.state.chefs.filter(chef => chef._id !== id)
-                console.log('HOLA', response.data)
-                this.setState({ count: newCount})
+                const chef = chefFilter[0] // accedo al objeto del array (chef)
+                const addLike = Object.assign(chef, response.data) //añado el valor de like como nueva propiedad del objeto de chef (response.data es el like)
+                const like = addLike.like// accedo directo a la propiedad del objeto 
+                this.setState({ count: like }) // actualizo el estado
             })
             .catch(err => console.log('HAY UN PROBLEMA',err))
     }
 
+    // incrementMe = (id) => {
+    //     let newCount = this.state.count + 1
+    //     this.chefService
+    //         .like(id)
+    //         .then(response => {
+    //             const newLikes = this.state.chefs.filter(chef => chef._id === id)
+    //             console.log('HOLA', response.data)
+    //             this.setState({ count: newCount })
+    //         })
+    //         .catch(err => console.log('HAY UN PROBLEMA', err))
+    // }
+
 
     render() {
         const editingChef = this.state.chef ? this.state.chefs.filter(elm => elm._id === this.state.chef)[0] : {}
-        console.log('HOLA', this.state.chefs)
         return (
 
             <>
