@@ -22,7 +22,7 @@ const chefs = [{
     contact: 605443215,
     certificate: true,
     title: true,
-    img: 'https://images.unsplash.com/photo-1581015663190-ed4354492619?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
+    img: 'https://images.unsplash.com/photo-1581015663190-ed4354492619?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
 },
 
 {

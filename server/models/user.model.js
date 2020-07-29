@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
         enum: ['ADMIN', 'CLIENT'],
         default: 'CLIENT'
     },
-    favourites: [String],
+    favorites: [String],
 }, {
       timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true }
 })

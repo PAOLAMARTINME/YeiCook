@@ -9,7 +9,7 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
-const ChefCard = ({ _id, name, avatar, type, specialty, location, img, deleteChef, handleModal, loggedInUser, incrementMe, count, addToFavourite }) => {
+const ChefCard = ({ _id, name, avatar, type, specialty, location, img, deleteChef, handleModal, loggedInUser, incrementMe, count, displayFavorites}) => {
   
     return (
         <Col md={3}>
@@ -22,14 +22,18 @@ const ChefCard = ({ _id, name, avatar, type, specialty, location, img, deleteChe
                     <Card.Text>{location}</Card.Text>
                     <Card.Img variant="top" src={img} />
                     
-                    <div onClick={() => incrementMe(_id)} style={{ alignSelf: 'center' }}>
+                    {/* <div onClick={() => incrementMe(_id)} style={{ alignSelf: 'center' }}>
                         <FontAwesomeIcon icon={faHeart} size="lg" color="black" className="likes-count" />
                         {count}
-                    </div>
-
+                    </div> */}
+{/* 
                     <div onClick={() => addToFavourite(_id)} style={{ alignSelf: 'center' }}>
                         <FontAwesomeIcon icon={faHeart} size="lg" color="green" className="favourites" />
-                    </div> 
+                    </div>  */}
+                    <div >
+                        {loggedInUser ?
+                            displayFavorites(_id) : null}
+                    </div>
 
                     <Link to={`/chefs/${_id}`} className="btn btn-info btn-block btn-sm">Ver detalles</Link>
                     <hr></hr>
@@ -65,5 +69,3 @@ export default ChefCard
 
 
 
-
-{/* <Button onClick={() => incrementMe(_id)} variant="info" className="likes-count" size="sm" style={{ marginBottom: '20px' }}>Me gusta: {count}</Button> */ }

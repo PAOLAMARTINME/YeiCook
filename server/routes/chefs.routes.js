@@ -8,6 +8,7 @@ const { ensureLoggedIn, ensureLoggedOut} = require("connect-ensure-login")
 const Chef = require('../models/chefCard.model')
 const User = require('../models/user.model')
 const Like = require('../models/likes.model')
+const Comments = require('../models/comments.model')
 
 // Role checker middleware
 const checkRole = rolesToCheck => (req, res, next) => rolesToCheck.includes(req.user.role) ? next() : res.redirect('/login')
@@ -17,8 +18,6 @@ router.get('/getAllChefs', (req, res, next) => {
 
     Chef
         .find()
-        .populate('likes')
-        .populate('user')
         .then(response => res.json(response))
         .catch(err => next(err))
 
@@ -28,6 +27,9 @@ router.get('/getOneChef/:id', (req, res, next) => {
 
     Chef
         .findById(req.params.id)
+        .populate('comments')
+        .populate('likes')
+        .populate('user')
         .then(response => res.json(response))
         .catch(err => next(err))
 })
@@ -43,6 +45,7 @@ router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.f
             contact,
             certificate,
             title,
+            comments
         } = req.body
     const tempImg = req.files && req.files['img'] ? req.files['img'][0].url : req.body.img
     const tempAvatar = req.files && req.files['avatar'] ? req.files['avatar'][0].url : req.body.avatar
@@ -57,7 +60,8 @@ router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.f
                 contact,
                 certificate,
                 title,
-                img: tempImg
+                img: tempImg,
+                comments
             }, { new: true })
             .then(response => res.json(response))
             .catch(err => next(err))
@@ -74,6 +78,8 @@ router.post('/newChef', checkRole(['ADMIN']), ensureLoggedIn(), uploader.fields(
         contact,
         certificate,
         title,
+        comments
+
     } = req.body;
 
     const tempImg = req.files ? req.files['img'][0].url : req.body.img
@@ -89,7 +95,9 @@ router.post('/newChef', checkRole(['ADMIN']), ensureLoggedIn(), uploader.fields(
                 contact,
                 certificate,
                 title,
-                img: tempImg
+                img: tempImg,
+                comments
+
             })
             .then(response => res.json(response))
             .catch(err => next(err))
@@ -129,5 +137,18 @@ router.post('/getOneChef/:id/like', (req, res, next) => {
         .catch(next);
 })
 
+router.post('/getOneChef/:id/comments', (req, res, next) => {
+    const paramsChef = { chef: req.params.id }
+    const paramsUser = {user: req.user._id
+};
+    console.log(params);
+
+    Comments.create({
+        content,
+        chef: paramsChef,
+        user: paramsUser
+    })
+        
+})
 
 module.exports = router

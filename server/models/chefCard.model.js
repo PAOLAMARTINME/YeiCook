@@ -35,7 +35,8 @@ const ChefSchema = new mongoose.Schema({
     },
     img: {
         type: String
-    }
+    },
+    // comments: { type: ObjectId, ref: 'Comments' }
 }, {
         timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true }
 })
@@ -50,13 +51,13 @@ ChefSchema.virtual('likes', {
     justOne: false
 });
 
-//Comments
-ChefSchema.virtual('comments', {
-    ref: 'Comments',
-    localField: '_id',
-    foreignField: 'Chef',
-    justOne: false
-});
+// //Comments
+// ChefSchema.virtual('comments', {
+//     ref: 'Comments',
+//     localField: '_id',
+//     foreignField: 'Chef',
+//     justOne: false
+// });
 
 const Chef = mongoose.model("Chef", ChefSchema)
 

@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import ChefService from '../../../../service/ChefService'
+import UserService from '../../../../service/UserService'
 
 import ChefCard from './chef-card'
 import ChefForm from './chef-form'
 
 import './chefList.css'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -21,9 +25,10 @@ class ChefList extends Component {
             showModal: false,
             isCreating: true,
             count: 0,
-            favourites: [],
+            favorites: this.props.loggedInUser ? this.props.loggedInUser.favorites : []
         }
         this.chefService = new ChefService()
+        this.userService = new UserService()
     }
 
     componentDidMount = () => this.updateChefList()
@@ -54,47 +59,45 @@ class ChefList extends Component {
     }
 
 
-    incrementMe = (id) => {
-        let newCount
-        const chefFilter = this.state.chefs.filter((chef) => {
-            console.log(chef._id === id)
-            if (chef._id === id) {
-                return newCount = this.state.count + 1
-// con return viene el objeto sin return viene un array vacio
-            }
-        });
-        console.log(chefFilter)
-        this.chefService
-            .like(id)
-            .then(response => {
-                const chef = chefFilter[0] // accedo al objeto del array (chef)
-                const addLike = Object.assign(chef, response.data) //añado el valor de like como nueva propiedad del objeto de chef (response.data es el like)
-                const like = addLike.like// accedo directo a la propiedad del objeto 
-                this.setState({ count: like }) // actualizo el estado
+    addFavorites = (chefId) => {
+        const currentFavorites = [...this.props.loggedInUser.favorites]
+        currentFavorites.push(chefId)
+        const updatedFavorites = [...currentFavorites]
+        const updateUser = { ...this.props.loggedInUser, favorites: updatedFavorites }
+        this.userService.editProfile(this.props.loggedInUser._id, updateUser)
+            .then((response) => {
+                this.props.setTheUser(response.data)
             })
-            .catch(err => console.log('HAY UN PROBLEMA',err))
+            .catch(err => console.log(err))
+    }
+    deleteFavorites = (chefId) => {
+        const currentFavorites = [...this.props.loggedInUser.favorites]
+        let updatedFavorites = currentFavorites.filter(chef => chef !== chefId)
+        const updateUser = { ...this.props.loggedInUser, favorites: updatedFavorites }
+        this.userService.editProfile(this.props.loggedInUser._id, updateUser)
+            .then((response) => {
+                this.props.setTheUser(response.data)
+            })
+            .catch(err => console.log(err))
     }
 
-    // incrementMe = (id) => {
-    //     let newCount = this.state.count + 1
-    //     this.chefService
-    //         .like(id)
-    //         .then(response => {
-    //             const newLikes = this.state.chefs.filter(chef => chef._id === id)
-    //             console.log('HOLA', response.data)
-    //             this.setState({ count: newCount })
-    //         })
-    //         .catch(err => console.log('HAY UN PROBLEMA', err))
-    // }
-
-
-
-    addToFavourite = (id) => {
-        console.log('HOLA CHEF', id)
-        this.setState({
-            favourites: [id, ...this.state.favourites]
-        })
+    //profile 
+    displayFavorites = (chefId) => {
+        const { loggedInUser } = this.props
+        return (
+            <>
+                {loggedInUser && loggedInUser.favorites.length && loggedInUser.favorites.includes(chefId) ?
+                    <div style={{ marginRight: "10px" }} onClick={() => this.deleteFavorites(chefId)}>
+                        <FontAwesomeIcon icon={faHeart} size="1x" color="#F5B7B1" className="Button1" />
+                    </div>
+                    :
+                    <div style={{ marginRight: "10px" }} onClick={() => this.addFavorites(chefId)}>
+                        <FontAwesomeIcon icon={faHeart} size="1x" color="#E74C3C" className="Button1" />
+                    </div>}
+            </>
+        )
     }
+
 
 
     render() {
@@ -109,7 +112,7 @@ class ChefList extends Component {
 
 
                     <Row>
-                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} loggedInUser={this.props.loggedInUser} handleModal={this.handleModal} deleteChef={this.deleteChef} incrementMe={this.incrementMe} count={this.state.count} addToFavourite={this.addToFavourite}/>))}
+                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} loggedInUser={this.props.loggedInUser} handleModal={this.handleModal} deleteChef={this.deleteChef} incrementMe={this.incrementMe} count={this.state.count} displayFavorites={this.displayFavorites}/>))}
 
                     </Row>
                 </Container>
