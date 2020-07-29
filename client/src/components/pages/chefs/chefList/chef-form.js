@@ -25,8 +25,8 @@ class ChefForm extends Component {
     }
 
     handleInputChange = e => {
-        const { name, value } = e.target
-        this.setState({ [name]: value })
+        const value = e.target.type === "file" ? e.target.files[0] : e.target.value
+        this.setState({ [e.target.name]: value })
         
     }
 
@@ -72,10 +72,6 @@ class ChefForm extends Component {
                         </Form.Control>
                     </Form.Group>
 
-                    {/* <Form.Group>
-                        <Form.Label>Especialidad</Form.Label>
-                        <Form.Control onChange={this.handleInputChange} value={this.state.specialty} name="specialty" type="text" />
-                    </Form.Group> */}
                     <Form>
                         <Form.Group controlId="exampleForm.SelectCustom">
                             <Form.Label>Especilidad</Form.Label>
@@ -111,12 +107,12 @@ class ChefForm extends Component {
                     {/* // CLOUDINARYCONFIG   */}
                     <Form.Group>
                         <Form.Label>Avatar (archivo)</Form.Label>
-                        <Form.Control name="avatar" type="file" onChange={this.handleFormSubmit} />
+                        <Form.Control name="avatar" type="file" onChange={this.handleInputChange} />
                     </Form.Group>
 
                     <Form.Group>
                         <Form.Label>Imagen plato (archivo)</Form.Label>
-                        <Form.Control name="img" type="file" onChange={this.handleFormSubmit} />
+                        <Form.Control name="img" type="file" onChange={this.handleInputChange} />
                     </Form.Group>
 
                     <Button variant="info" type="submit">Guardar</Button>

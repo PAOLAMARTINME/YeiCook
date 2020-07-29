@@ -14,6 +14,8 @@ import Image from 'react-bootstrap/Image'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 
+import { Link } from 'react-router-dom'
+
 
 class Profile extends Component {
     constructor(props) {
@@ -26,7 +28,8 @@ class Profile extends Component {
             avatar: this.props.loggedInUser.avatar || '',
             location: this.props.loggedInUser.location || '',
             contact: this.props.loggedInUser.contact || '',
-            showModal: false
+            showModal: false,
+           
         }
         this.userService = new UserService()
     }
@@ -58,7 +61,7 @@ class Profile extends Component {
                     {
                         this.props.loggedInUser && <Button onClick={() => this.handleModal(true)} variant="info" size="sm" style={{ marginBottom: '20px' }}>Editar perfil</Button>
                     }
-                        <Row>
+                    <Row>
                         <Image className="avatarDefault" src={this.props.loggedInUser.avatar}></Image>
                     </Row>
                     
@@ -71,33 +74,16 @@ class Profile extends Component {
                             <ListGroup.Item><h5>Contacto: {this.props.loggedInUser.contact}</h5></ListGroup.Item>
                         </ListGroup>
                     </Card>
-                        {/* <Row>
-                        <h1>{this.props.loggedInUser.name}</h1>
-                        </Row> */}
-                        {/* <Row>
-                        <h3>Nombre:</h3>
-                        <h5>{this.props.loggedInUser.username}</h5>
-                        </Row>
-                        <Row>
-                        <h3>Email:</h3>
-                        <h5>{this.props.loggedInUser.email}</h5>
-                        </Row>
-                        <Row>
-                        <h3>Localización:</h3>
-                        <h5>{this.props.loggedInUser.location}</h5>
-                        </Row>
-                       <Row>
-                        <h3>Contacto:</h3>
-                        <h5>{this.props.loggedInUser.contact}</h5>
-                        </Row> */}
 
+                    <Link className="btn btn-info btn-md" to='/chefs'>Volver</Link>
                     
                 </Container>
 
                 <Modal size="lg" show={this.state.showModal} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
                         {this.state.showModal ? 
-                            <EditProfile {...this.state} loggedInUser={this.props.loggedInUser} setTheUser={this.props.setTheUser} handleProfileSubmit={this.handleProfileSubmit} /> : null}
+                            <EditProfile {...this.state} loggedInUser={this.props.loggedInUser} setTheUser={this.props.setTheUser} handleProfileSubmit={this.handleProfileSubmit} onHide={this.onHide} />
+                        : null}
                     </Modal.Body>
                 </Modal>
 

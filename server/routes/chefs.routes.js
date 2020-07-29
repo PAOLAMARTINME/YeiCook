@@ -33,7 +33,7 @@ router.get('/getOneChef/:id', (req, res, next) => {
 })
 
 
-router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.single("avatar"), (req, res, next) => {
+router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.fields([{ name: 'avatar', maxCount: 1 }, { name: 'img', maxCount: 1 }]), (req, res, next) => {
         const {
             name,
             email,
@@ -44,8 +44,8 @@ router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.s
             certificate,
             title,
         } = req.body
-    const tempImg = req.file ? req.file.url : req.body.img
-    const tempAvatar = req.file ? req.file.url : req.body.avatar
+    const tempImg = req.files && req.files['img'] ? req.files['img'][0].url : req.body.img
+    const tempAvatar = req.files && req.files['avatar'] ? req.files['avatar'][0].url : req.body.avatar
         Chef
             .findByIdAndUpdate(req.params.id, {
                 name,
@@ -64,7 +64,7 @@ router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.s
 })
 
 
-router.post('/newChef', checkRole(['ADMIN']), ensureLoggedIn(), uploader.single("avatar"), (req, res, next) => {
+router.post('/newChef', checkRole(['ADMIN']), ensureLoggedIn(), uploader.fields([{ name: 'avatar', maxCount: 1 }, { name: 'img', maxCount: 1 }]), (req, res, next) => {
     const {
         name,
         email,
@@ -76,8 +76,8 @@ router.post('/newChef', checkRole(['ADMIN']), ensureLoggedIn(), uploader.single(
         title,
     } = req.body;
 
-    const tempImg = req.file ? req.file.url : req.body.img
-    const tempAvatar = req.file ? req.file.url : req.body.avatar
+    const tempImg = req.files ? req.files['img'][0].url : req.body.img
+    const tempAvatar = req.files ? req.files['avatar'][0].url : req.body.avatar
         Chef
             .create({
                 name,

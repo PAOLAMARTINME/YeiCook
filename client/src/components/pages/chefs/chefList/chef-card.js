@@ -9,7 +9,7 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
-const ChefCard = ({ _id, name, avatar, type, specialty, location, img, deleteChef, handleModal, loggedInUser, incrementMe, count }) => {
+const ChefCard = ({ _id, name, avatar, type, specialty, location, img, deleteChef, handleModal, loggedInUser, incrementMe, count, addToFavourite }) => {
   
     return (
         <Col md={3}>
@@ -27,6 +27,9 @@ const ChefCard = ({ _id, name, avatar, type, specialty, location, img, deleteChe
                         {count}
                     </div>
 
+                    <div onClick={() => addToFavourite(_id)} style={{ alignSelf: 'center' }}>
+                        <FontAwesomeIcon icon={faHeart} size="lg" color="green" className="favourites" />
+                    </div> 
 
                     <Link to={`/chefs/${_id}`} className="btn btn-info btn-block btn-sm">Ver detalles</Link>
                     <hr></hr>

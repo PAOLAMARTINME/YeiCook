@@ -25,6 +25,7 @@ router.patch("/getOneProfile/:id", ensureLoggedIn(), uploader.single("avatar"), 
         email,
         location,
         contact,
+        favourites
     } = req.body
     const tempAvatar = req.file ? req.file.url : req.user.avatar
     User
@@ -35,6 +36,7 @@ router.patch("/getOneProfile/:id", ensureLoggedIn(), uploader.single("avatar"), 
             avatar: tempAvatar,
             location,
             contact,
+            favourites
         }, { new: true })
         .then((data) => res.status(200).json(data))
         .catch(err => next(err))

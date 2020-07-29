@@ -6,12 +6,12 @@ import ChefList from './../chefs/chefList/chef-list'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
-class PageProfile extends Component {
+class PageChefs extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            chefs:[],
+            chefs: [],
         }
         this.chefService = new ChefService()
     }
@@ -28,6 +28,8 @@ class PageProfile extends Component {
 
                         <ChefList setTheUser={this.props.setTheUser} loggedInUser={this.props.loggedInUser} />
 
+   
+
                     </Row>
 
                 </Container>
@@ -37,4 +39,4 @@ class PageProfile extends Component {
         )
     }
 }
-export default PageProfile
+export default PageChefs

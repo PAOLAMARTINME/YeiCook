@@ -28,9 +28,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['ADMIN', 'CLIENT'],
         default: 'CLIENT'
-    }
+    },
+    favourites: [String],
 }, {
-    timestamps: true
+      timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true }
 })
 
 
@@ -47,3 +48,5 @@ userSchema.virtual('likes', {
 const User = mongoose.model("User", userSchema)
 
 module.exports = User
+
+

@@ -20,7 +20,8 @@ class ChefList extends Component {
             Chef: null,
             showModal: false,
             isCreating: true,
-            count: 0
+            count: 0,
+            favourites: [],
         }
         this.chefService = new ChefService()
     }
@@ -87,6 +88,15 @@ class ChefList extends Component {
     // }
 
 
+
+    addToFavourite = (id) => {
+        console.log('HOLA CHEF', id)
+        this.setState({
+            favourites: [id, ...this.state.favourites]
+        })
+    }
+
+
     render() {
         const editingChef = this.state.chef ? this.state.chefs.filter(elm => elm._id === this.state.chef)[0] : {}
         return (
@@ -99,7 +109,7 @@ class ChefList extends Component {
 
 
                     <Row>
-                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} loggedInUser={this.props.loggedInUser} like={this.like} handleModal={this.handleModal} deleteChef={this.deleteChef} incrementMe={this.incrementMe} count={this.state.count} />))}
+                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} loggedInUser={this.props.loggedInUser} handleModal={this.handleModal} deleteChef={this.deleteChef} incrementMe={this.incrementMe} count={this.state.count} addToFavourite={this.addToFavourite}/>))}
 
                     </Row>
                 </Container>
