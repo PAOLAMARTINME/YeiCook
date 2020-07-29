@@ -98,8 +98,6 @@ class ChefList extends Component {
         )
     }
 
-
-
     render() {
         const editingChef = this.state.chef ? this.state.chefs.filter(elm => elm._id === this.state.chef)[0] : {}
         return (

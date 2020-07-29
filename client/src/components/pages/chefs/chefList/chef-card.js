@@ -26,10 +26,7 @@ const ChefCard = ({ _id, name, avatar, type, specialty, location, img, deleteChe
                         <FontAwesomeIcon icon={faHeart} size="lg" color="black" className="likes-count" />
                         {count}
                     </div> */}
-{/* 
-                    <div onClick={() => addToFavourite(_id)} style={{ alignSelf: 'center' }}>
-                        <FontAwesomeIcon icon={faHeart} size="lg" color="green" className="favourites" />
-                    </div>  */}
+
                     <div >
                         {loggedInUser ?
                             displayFavorites(_id) : null}

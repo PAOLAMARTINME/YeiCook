@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 
 import UserService from '../../../service/UserService'
+import ChefService from '../../../service/ChefService'
+
+import ChefCard from '../chefs/chefList/chef-card'
 
 import EditProfile from './profile-edit'
 
 import './profile.css'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 import Container from 'react-bootstrap/Container'
 import Modal from 'react-bootstrap/Modal'
@@ -29,9 +35,12 @@ class Profile extends Component {
             location: this.props.loggedInUser.location || '',
             contact: this.props.loggedInUser.contact || '',
             showModal: false,
-           
+            favorites: this.props.loggedInUser ? this.props.loggedInUser.favorites : []
+
         }
         this.userService = new UserService()
+        this.chefService = new ChefService()
+
     }
     componentDidMount = () => this.updateProfile()
 
@@ -42,29 +51,38 @@ class Profile extends Component {
             .catch(err => console.log(err))
     }
 
-    handleModal = (status, id) => this.setState({ showModal: status, user: id }) 
+    handleModal = (status, id) => this.setState({ showModal: status, user: id })
 
     handleProfileSubmit = () => {
         this.handleModal(false)
         this.updateProfile()
     }
 
+    updateFavorites = () => {
+        this.userService
+            .getOneProfile(this.props.loggedInUser._id)
+            .then(response =>  this.setState({ favorites: response.data }))
+            .catch(err => console.log(err))    
+    }
+
+
     render() {
-     
+
         return (
             <>
 
                 <Container as="main" className="profile-page">
-                    
+
                     <h1>Bienvenid@ {this.props.loggedInUser.username}</h1>
-                    
+
                     {
                         this.props.loggedInUser && <Button onClick={() => this.handleModal(true)} variant="info" size="sm" style={{ marginBottom: '20px' }}>Editar perfil</Button>
                     }
+
                     <Row>
                         <Image className="avatarDefault" src={this.props.loggedInUser.avatar}></Image>
                     </Row>
-                    
+
                     <Card style={{ width: '45rem' }}>
                         <ListGroup variant="flush">
                             <ListGroup.Item><h2>{this.props.loggedInUser.name}</h2></ListGroup.Item>
@@ -76,14 +94,22 @@ class Profile extends Component {
                     </Card>
 
                     <Link className="btn btn-info btn-md" to='/chefs'>Volver</Link>
-                    
+
+                    <h1>Lista de favoritos</h1>
+                    <Row>
+
+                        {this.state.favorites.map(chef => (<ChefCard key={chef._id} loggedInUser={this.props.loggedInUser} displayFavorites={this.displayFavorites}  />))}
+
+                    </Row>
+
+
                 </Container>
 
                 <Modal size="lg" show={this.state.showModal} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
-                        {this.state.showModal ? 
+                        {this.state.showModal ?
                             <EditProfile {...this.state} loggedInUser={this.props.loggedInUser} setTheUser={this.props.setTheUser} handleProfileSubmit={this.handleProfileSubmit} onHide={this.onHide} />
-                        : null}
+                            : null}
                     </Modal.Body>
                 </Modal>
 
