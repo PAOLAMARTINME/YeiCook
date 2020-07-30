@@ -83,11 +83,11 @@ class ChefList extends Component {
             <>
                 {loggedInUser && loggedInUser.favorites.length && loggedInUser.favorites.includes(chefId) ?
                     <div style={{ marginRight: "10px" }} onClick={() => this.deleteFavorites(chefId)}>
-                        <FontAwesomeIcon icon={faHeart} size="1x" color=" #679186" className="Button1" />
+                        <FontAwesomeIcon icon={faHeart} size="1x" color="#E74C3C" className="Button1" />
                     </div>
                     :
                     <div style={{ marginRight: "10px" }} onClick={() => this.addFavorites(chefId)}>
-                        <FontAwesomeIcon icon={faHeart} size="1x" color="#cccccc" className="Button1" />
+                        <FontAwesomeIcon icon={faHeart} size="1x" color="#F5B7B1" className="Button1" />
                     </div>}
             </>
         )

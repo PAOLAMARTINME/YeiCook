@@ -14,6 +14,9 @@ import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import UserService from '../../../service/UserService'
 
 class Profile extends Component {
     constructor(props) {
@@ -32,6 +35,7 @@ class Profile extends Component {
             showModal: false
         }
         this.chefService = new ChefService()
+        this.userService = new UserService()
     }
     componentDidMount = () => {
         this.getChefList()
@@ -59,6 +63,18 @@ class Profile extends Component {
         this.handleModal(false)
         this.getOneProfile()
     }
+
+    deleteFavorites = (chefId) => {
+        const currentFavorites = [...this.state.loggedInUser.favorites]
+        let updatedFavorites = currentFavorites.filter(chef => chef !== chefId)
+        const updateUser = { ...this.state.loggedInUser, favorites: updatedFavorites }
+        this.userService.editProfile(this.state.loggedInUser._id, updateUser)
+            .then((response) => {
+                this.props.setTheUser(response.data)
+            })
+            .catch(err => console.log(err))
+    }
+
     render() {
         console.log("FAVORITES", this.state.favorites)
         console.log("CHEFSFAVORITES", this.state.chefsFavorites)
@@ -76,7 +92,7 @@ class Profile extends Component {
 
                     <Card style={{ width: '45rem' }}>
                          <ListGroup variant="flush">
-                             <ListGroup.Item><h2>{this.props.loggedInUser.name}</h2></ListGroup.Item>
+                             <ListGroup.Item><h2>{this.props.loggedInUser.username}</h2></ListGroup.Item>
                              <ListGroup.Item><h5>Nombre: {this.props.loggedInUser.name}</h5></ListGroup.Item>
                              <ListGroup.Item><h5>Email: {this.props.loggedInUser.email}</h5></ListGroup.Item>
                              <ListGroup.Item><h5>Localización: {this.props.loggedInUser.location}</h5></ListGroup.Item>
@@ -85,12 +101,12 @@ class Profile extends Component {
                      </Card>
                     
                     <h1>Mis chefs favoritos</h1>
+
                     <Row>
                     {this.state.chefsFavorites.map(chef =>
-                            (<ChefCard key={chef._id} {...chef} />)
+                        (<ChefCard key={chef._id} {...chef} displayFavorites={this.displayFavorites} loggedInUser={this.state.loggedInUser} />)
                         )}
                     </Row>
-
 
                 </Container>
                 <Modal size="lg" show={this.state.showModal} onHide={() => this.handleModal(false)}>
