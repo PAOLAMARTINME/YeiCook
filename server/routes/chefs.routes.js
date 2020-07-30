@@ -8,7 +8,6 @@ const { ensureLoggedIn, ensureLoggedOut} = require("connect-ensure-login")
 const Chef = require('../models/chefCard.model')
 const User = require('../models/user.model')
 const Like = require('../models/likes.model')
-const Comments = require('../models/comments.model')
 
 // Role checker middleware
 const checkRole = rolesToCheck => (req, res, next) => rolesToCheck.includes(req.user.role) ? next() : res.redirect('/login')
@@ -34,8 +33,7 @@ router.get('/getOneChef/:id', (req, res, next) => {
         .catch(err => next(err))
 })
 
-
-router.put("/getOneChef/:id", checkRole(['ADMIN']), ensureLoggedIn(), uploader.fields([{ name: 'avatar', maxCount: 1 }, { name: 'img', maxCount: 1 }]), (req, res, next) => {
+router.put("/getOneChef/:id", ensureLoggedIn(), checkRole(['ADMIN']), uploader.fields([{ name: 'avatar', maxCount: 1 }, { name: 'img', maxCount: 1 }]), (req, res, next) => {
         const {
             name,
             email,
@@ -79,7 +77,6 @@ router.post('/newChef', checkRole(['ADMIN']), ensureLoggedIn(), uploader.fields(
         certificate,
         title,
         comments
-
     } = req.body;
 
     const tempImg = req.files ? req.files['img'][0].url : req.body.img
@@ -97,7 +94,6 @@ router.post('/newChef', checkRole(['ADMIN']), ensureLoggedIn(), uploader.fields(
                 title,
                 img: tempImg,
                 comments
-
             })
             .then(response => res.json(response))
             .catch(err => next(err))
@@ -137,18 +133,23 @@ router.post('/getOneChef/:id/like', (req, res, next) => {
         .catch(next);
 })
 
-router.post('/getOneChef/:id/comments', (req, res, next) => {
-    const paramsChef = { chef: req.params.id }
-    const paramsUser = {user: req.user._id
-};
-    console.log(params);
 
-    Comments.create({
-        content,
-        chef: paramsChef,
-        user: paramsUser
-    })
-        
+//COMMENTS
+router.post('/comment/:id', (req, res, next) => {
+
+    Chef
+        .findByIdAndUpdate(req.params.id, { $push: { comments: req.body.comments }}, { new: true })
+        .then(response => res.json(response))
+        .catch(err => next(err))
+})
+
+// DELETE COMMENTS
+router.post('/deleteComment/:id', (req, res, next) => {
+
+    Chef
+        .findByIdAndUpdate(req.params.id, { $pop: { comments: 1} })
+        .then(response => res.json(response))
+        .catch(err => next(err))
 })
 
 module.exports = router
