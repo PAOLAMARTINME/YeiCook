@@ -62,7 +62,7 @@ class ChefDetails extends Component {
             likes: newCount
         });
     };
-    
+
     render() {
         return !this.state.chefDetails ? (
             <h3>Spinner</h3>
@@ -102,6 +102,12 @@ class ChefDetails extends Component {
                                             {this.state.chefDetails.contact}
                                         </li>
                                     </ul>
+
+                                    <div onClick={this.addLike} id={this.props.likeId} style={{ alignSelf: 'center' }}>
+                                        <FontAwesomeIcon icon={faThumbsUp} size="lg" color="black" className="likes-count" />
+                                        {this.state.likes}
+                                    </div>
+
                                     <div>
                                         <h3>Galeria de Platos</h3>
                                         <Carousel>
@@ -130,9 +136,7 @@ class ChefDetails extends Component {
                                     </div>
                                 </div>
                                 <div id="boton">
-                                    <Link className="btn btn-light btn-md" to="/chefs">
-                                        Volver
-                </Link>
+                                    <Link className="btn btn-light btn-md" to="/chefs">Volver</Link>
                                 </div>
                             </div>
                             <Row>
@@ -147,6 +151,8 @@ class ChefDetails extends Component {
                                     </Tab>
                                     <Tab eventKey="profile" title="Comentarios">
                                         {/* imprimir comentarios */}
+                                        {/* <ChefComment id={this.props.match.params.id} handleDetailsSubmit={this.handleDetailsSubmit} /> */}
+                                        
                                     </Tab>
                                 </Tabs>
                             </Row>
