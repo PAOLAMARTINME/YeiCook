@@ -1,3 +1,185 @@
-.avatarDefault{
-width: 200px;
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+body{padding: 0; margin: 0; background: white;}
+html{height: 100%; position: relative;}
+*{padding: 0; margin: 0; list-style-type: none; box-sizing: border-box; font-family: 'Josefin Sans', sans-serif;}
+h3 {
+  margin-left: 50px;
+}
+#social{
+  float: left;
+  padding: 5px;
+  width: 80px;
+  height: 500px;
+  text-align: center;
+  margin: 15px -0 0 10px;
+  background: rgba(0,165,215,1);
+  background: -moz-linear-gradient(45deg, rgba(0,165,215,1) 0%, rgba(0,125,163,1) 100%);
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(0,165,215,1)), color-stop(100%, rgba(0,125,163,1)));
+  background: -webkit-linear-gradient(45deg, rgba(0,165,215,1) 0%, rgba(0,125,163,1) 100%);
+  background: -o-linear-gradient(45deg, rgba(0,165,215,1) 0%, rgba(0,125,163,1) 100%);
+  background: -ms-linear-gradient(45deg, rgba(0,165,215,1) 0%, rgba(0,125,163,1) 100%);
+  background: linear-gradient(45deg, rgba(0,165,215,1) 0%, rgba(0,125,163,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a5d7', endColorstr='#007da3', GradientType=1 );
+  box-shadow: 1px 0 3px 2px rgba(0, 0, 0, 0.2) ;
+}
+#social li{
+  margin: 5px auto;
+  font-size: 2em;
+  color: #fff;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  height: 60px;
+  line-height: 1.7;
+  cursor: pointer;
+}
+.profile{
+  width: 800px;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  margin: 15px auto 15px 10px;
+  box-shadow: 1px 0 3px 2px rgba(0, 0, 0, 0.2) ;
+  float: left
+}
+#cover{
+  width: 136%;
+  height: 73%;
+  position: absolute;
+  transform: rotate(37deg);
+  top: -55%;
+  left: -20%;
+  background: rgba(0,165,215,1);
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(0,165,215,1)), color-stop(100%, rgba(0,125,163,1)));
+  background: linear-gradient(45deg, rgba(0,165,215,1) 0%, rgba(0,125,163,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a5d7', endColorstr='#007da3', GradientType=1 );
+  opacity: 90%;
+}
+#shadow{
+  clear: both;
+  height: 10px;
+  bottom: 200px;
+  overflow: hidden;
+  margin: 356px 0 0 0
+}
+#shadow img{
+  width: 80%;
+  height: 10px;
+  padding: 0 0px 0 20px;
+  opacity: 0.5;
+}
+#info{
+  margin: 280px auto;
+  width: 90%;
+  border-top: 1px solid #ccc;
+  padding: 10px 0 0 0;
+}
+#info li{
+  padding: 2px 0 2px 10px;
+  margin: 3px auto;
+  font-size: 10pt;
+}
+#username{
+  text-align: center;
+  font-size: 1.5em!important;
+  line-height: 1;
+  font-weight: bold;
+}
+#avatar{
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  z-index: 1;
+  border: solid 5px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 20px;
+  cursor: pointer;
+  transition: .3s;
+}
+#info i{
+  font-size: 14pt;
+  margin: 0 5px;
+  color: #057091
+}
+#avatar img{
+  width: 100%;
+}
+#avatar:hover{
+  border: solid 3px rgba(255, 255, 255, 0.6);
+}
+#logo{
+  position: absolute;
+  top: 20px;
+  right: 23px;
+}
+#logo img{
+  width: 110px;
+  opacity: 0.6;
+}
+#twitter:hover{
+  background-color: #1DB5F6;
+}
+#twitter i{
+  transition: .5s;
+}
+#twitter:hover  > i{
+  transform: scale(1.3);
+  transition: .5s;
+}
+#facebook:hover{
+  background-color: #4267B2;
+}
+#facebook i{
+  transition: .5s;
+}
+#facebook:hover  > i{
+  transform: scale(1.3);
+  transition: .5s;
+}
+#instagram:hover{
+  background-color: #E23F5F;
+}
+#instagram i{
+  transition: .5s;
+}
+#instagram:hover  > i{
+  transform: scale(1.3);
+  transition: .5s;
+}
+/* Cards */
+.cards {
+  display: flex;
+  align-items: center;
+  padding: 40px;
+  overflow-x: scroll;
+  min-height: 100vh;
+}
+.card {
+  min-width: 300px;
+  margin-left: -80px;
+  border-radius: 40px;
+  padding: 30px;
+  box-shadow: -4px 4px 26px 2px hsla(184, 50%, 20%, .1);
+  background: linear-gradient(to right bottom, hsl(0, 0%, 98%), hsl(0, 0%, 96%));
+  transition: all .3s;
+  position: relative;
+}
+.card:first-child {
+  margin-left: 0;
+}
+.card:hover,
+.card:focus-within {
+  transform: translateY(-20px)
+}
+.card:hover+.card,
+.card:focus-within+.card {
+  transform: translateX(80px);
+}
+
+#profile-form {
+  padding: 20px;
+}
+#button-form {
+  margin: 20px;
 }

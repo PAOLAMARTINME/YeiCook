@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
+
 import ChefService from '../../../../service/ChefService'
 import UserService from '../../../../service/UserService'
+
 import ChefCard from './chef-card'
 import ChefForm from './chef-form'
 import './chefList.css'
+
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
+
 class ChefList extends Component {
     constructor(props) {
         super(props)
@@ -19,18 +23,20 @@ class ChefList extends Component {
             showModal: false,
             isCreating: true,
             favorites: this.props.loggedInUser ? this.props.loggedInUser.favorites : []
-            //count: 0
+
         }
         this.chefService = new ChefService()
         this.userService = new UserService()
     }
     componentDidMount = () => this.updateChefList()
+
     updateChefList = () => {
         this.chefService
             .getAllChefs()
             .then(response => this.setState({ chefs: response.data }))
             .catch(err => console.log(err))
     }
+
     deleteChef = (id) => {
         this.chefService.deleteChef(id)
             .then(response => {
@@ -39,23 +45,14 @@ class ChefList extends Component {
             })
             .catch(err => console.log(err))
     }
+
     handleModal = (status, id) => this.setState({ showModal: status, chef: id })
     
     finishFormSubmit = () => {
         this.handleModal(false)
         this.updateChefList()
     }
-    incrementMe = (id) => {
-        let newCount = this.state.count + 1
-        this.chefService
-            .like(id)
-            .then(response => {
-                const newLikes = this.state.chefs.filter(chef => chef._id !== id)
-                console.log('HOLA', response.data)
-                this.setState({ count: newCount })
-            })
-            .catch(err => console.log('HAY UN PROBLEMA', err))
-    }
+
     addFavorites = (chefId) => {
         const currentFavorites = [...this.props.loggedInUser.favorites]
         currentFavorites.push(chefId)
@@ -67,6 +64,7 @@ class ChefList extends Component {
             })
             .catch(err => console.log(err))
     }
+
     deleteFavorites = (chefId) => {
         const currentFavorites = [...this.props.loggedInUser.favorites]
         let updatedFavorites = currentFavorites.filter(chef => chef !== chefId)
@@ -77,6 +75,7 @@ class ChefList extends Component {
             })
             .catch(err => console.log(err))
     }
+
     displayFavorites = (chefId) => {
         const { loggedInUser } = this.props
         return (
@@ -94,7 +93,6 @@ class ChefList extends Component {
     }
     render() {
         const editingChef = this.state.chef ? this.state.chefs.filter(elm => elm._id === this.state.chef)[0] : {}
-        console.log('HOLA', this.state.chefs)
         return (
             <>
                 <Container as="main" className="chef-page">
@@ -102,7 +100,7 @@ class ChefList extends Component {
                         this.props.loggedInUser && this.props.loggedInUser.role === "ADMIN" ? <Button onClick={() => this.handleModal(true)} variant="info" size="sm" style={{ marginBottom: '20px' }}>Crear nuevo chef</Button> : null
                     }
                     <Row>
-                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} displayFavorites={this.displayFavorites} loggedInUser={this.props.loggedInUser} like={this.like} handleModal={this.handleModal} deleteChef={this.deleteChef} incrementMe={this.incrementMe} count={this.state.count} />))}
+                        {this.state.chefs.map(chef => (<ChefCard key={chef._id} {...chef} displayFavorites={this.displayFavorites} loggedInUser={this.props.loggedInUser} handleModal={this.handleModal} deleteChef={this.deleteChef} LikeId={chef.id} />))}
                     </Row>
                 </Container>
                 <Modal size="lg"

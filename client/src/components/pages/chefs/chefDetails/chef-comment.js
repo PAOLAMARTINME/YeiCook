@@ -29,8 +29,6 @@ class ChefComment extends Component {
             .catch(err => console.log(err))
 
     }
-
-
     render() {
        
         return (

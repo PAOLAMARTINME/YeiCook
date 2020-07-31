@@ -23,7 +23,7 @@ class EditProfile extends Component {
     }
 
     handleInputChange = e => {
-        const value= e.target.type === "file" ? e.target.files[0]: e.target.value
+        const value = e.target.type === "file" ? e.target.files[0] : e.target.value
         this.setState({ [e.target.name]: value })
     }
 
@@ -41,51 +41,159 @@ class EditProfile extends Component {
     }
 
     render() {
-
         return (
             <>
-                <Form onSubmit={this.handleFormSubmit}>
-                    <Form.Row>
-                        
+                <div id="profile-form">
+                    <Form onSubmit={this.handleFormSubmit}>
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="title">
+                                <Form.Label>Nombre</Form.Label>
+                                <Form.Control
+                                    name="name"
+                                    type="text"
+                                    placeholder="Nombre completo"
+                                    value={this.state.name}
+                                    onChange={this.handleInputChange}
+                                />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="title">
+                                <Form.Label>Usuario</Form.Label>
+                                <Form.Control
+                                    name="username"
+                                    type="text"
+                                    placeholder="Nombre de usuario"
+                                    value={this.state.username}
+                                    onChange={this.handleInputChange}
+                                />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="formGridEmail">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control
+                                    name="email"
+                                    type="email"
+                                    placeholder="Email"
+                                    value={this.state.email}
+                                    onChange={this.handleInputChange}
+                                />
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Group controlId="formGridAddress1">
+                            <Form.Label>Dirección</Form.Label>
+                            <Form.Control
+                                name="location"
+                                type="text"
+                                placeholder="Location"
+                                value={this.state.location}
+                                onChange={this.handleInputChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formGridAddress1">
+                            <Form.Label>Contacto</Form.Label>
+                            <Form.Control
+                                name="contact"
+                                type="number"
+                                placeholder="Contact"
+                                value={this.state.contact}
+                                onChange={this.handleInputChange}
+                            />
+                        </Form.Group>
                         {/* // CLOUDINARYCONFIG   */}
                         <Form.Group>
-                            <Form.Label>Imagen (archivo)</Form.Label>
-                            <Form.Control name="avatar" type="file" onChange={this.handleInputChange} />
+                            <Form.Label>Avatar</Form.Label>
+                            <Form.Control
+                                name="avatar"
+                                type="file"
+                                onChange={this.handleInputChange}
+                            />
                         </Form.Group>
-                        
-                        <Form.Group controlId="title">
-                            <Form.Label>Nombre</Form.Label>
-                            <Form.Control name="name" type="text" placeholder="Nombre completo" value={this.state.name} onChange={this.handleInputChange}/>
-                        </Form.Group>
-                        <Form.Group controlId="title">
-                            <Form.Label>Usuario</Form.Label>
-                            <Form.Control name="username" type="text" placeholder="Nombre de usuario" value={this.state.username} onChange={this.handleInputChange} />
-                        </Form.Group>
-                        <Form.Group as={Col} controlId="formGridEmail">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleInputChange} />
-                        </Form.Group>
-                    </Form.Row>
-
-                    <Form.Group controlId="formGridAddress1">
-                        <Form.Label>Dirección</Form.Label>
-                        <Form.Control name="location" type="text" placeholder="Location" value={this.state.location} onChange={this.handleInputChange}/>
-                    </Form.Group>
-
-                    <Form.Group controlId="formGridAddress1">
-                        <Form.Label>Contacto</Form.Label>
-                        <Form.Control name="contact" type="number" placeholder="Contact" value={this.state.contact} onChange={this.handleInputChange} />
-                    </Form.Group>
-
-                    <Button variant="info" type="submit" > Editar</Button>
-
-                </Form>
-           
+                        <div id="button-form">
+                            <Button variant="info" type="submit">
+                                {" "}
+            Editar
+          </Button>
+                        </div>
+                    </Form>
+                </div>
             </>
-
-        )
+        );
     }
 }
+    export default EditProfile
 
 
-export default EditProfile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//     render() {
+
+//         return (
+//             <>
+//                 <Form onSubmit={this.handleFormSubmit}>
+//                     <Form.Row>
+                        
+//                         {/* // CLOUDINARYCONFIG   */}
+//                         <Form.Group>
+//                             <Form.Label>Imagen (archivo)</Form.Label>
+//                             <Form.Control name="avatar" type="file" onChange={this.handleInputChange} />
+//                         </Form.Group>
+                        
+//                         <Form.Group controlId="title">
+//                             <Form.Label>Nombre</Form.Label>
+//                             <Form.Control name="name" type="text" placeholder="Nombre completo" value={this.state.name} onChange={this.handleInputChange}/>
+//                         </Form.Group>
+//                         <Form.Group controlId="title">
+//                             <Form.Label>Usuario</Form.Label>
+//                             <Form.Control name="username" type="text" placeholder="Nombre de usuario" value={this.state.username} onChange={this.handleInputChange} />
+//                         </Form.Group>
+//                         <Form.Group as={Col} controlId="formGridEmail">
+//                             <Form.Label>Email</Form.Label>
+//                             <Form.Control name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.handleInputChange} />
+//                         </Form.Group>
+//                     </Form.Row>
+
+//                     <Form.Group controlId="formGridAddress1">
+//                         <Form.Label>Dirección</Form.Label>
+//                         <Form.Control name="location" type="text" placeholder="Location" value={this.state.location} onChange={this.handleInputChange}/>
+//                     </Form.Group>
+
+//                     <Form.Group controlId="formGridAddress1">
+//                         <Form.Label>Contacto</Form.Label>
+//                         <Form.Control name="contact" type="number" placeholder="Contact" value={this.state.contact} onChange={this.handleInputChange} />
+//                     </Form.Group>
+
+//                     <Button variant="info" type="submit" > Editar</Button>
+
+//                 </Form>
+           
+//             </>
+
+//         )
+//     }
+// }
+
+
+// export default EditProfile

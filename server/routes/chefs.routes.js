@@ -26,8 +26,7 @@ router.get('/getOneChef/:id', (req, res, next) => {
 
     Chef
         .findById(req.params.id)
-        .populate('comments')
-        .populate('likes')
+        .populate('like')
         .populate('user')
         .then(response => res.json(response))
         .catch(err => next(err))
@@ -108,6 +107,9 @@ router.delete('/chef/:id', checkRole(['ADMIN']),ensureLoggedIn(), (req, res) => 
                 .catch(err => next(err))
         
     })
+
+
+//LIKES
 
 router.post('/getOneChef/:id/like', (req, res, next) => {
     const params = { chef: req.params.id, user: req.user._id};

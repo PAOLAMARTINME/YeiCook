@@ -22,9 +22,9 @@ class Home extends Component {
                 
                 <Figure className="BackHome">
 
-                        {/* <h1>Nunca fue tan facil ser buen anfitrión</h1> */}
                     
-                        <Figure.Image alt="fondo" src="/images/AdobeStock_314133185.jpeg" />
+                    <Figure.Image alt="fondo" src="/images/AdobeStock_314133185.jpeg" />
+                    <div class="centrado"><h1>Nunca fue tan facil ser buen anfitrión</h1></div>
                 </Figure>
                 
                 <footer className="footer">

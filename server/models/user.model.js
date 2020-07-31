@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
 
 //Likes
 
-userSchema.virtual('likes', {
+userSchema.virtual('like', {
     ref: 'Like',
     localField: '_id',
     foreignField: 'User',

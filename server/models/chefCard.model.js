@@ -44,7 +44,7 @@ const ChefSchema = new mongoose.Schema({
 
 //Likes
 
-ChefSchema.virtual('likes', {
+ChefSchema.virtual('like', {
     ref: 'Like',
     localField: '_id',
     foreignField: 'Chef',
